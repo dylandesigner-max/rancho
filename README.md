@@ -1,56 +1,59 @@
-# Welcome to your Expo app 👋
+# Rancho
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+> O controle da sua compra na palma da sua mão.
 
-## Get started
+**Rancho** é um app mobile para planejar e fazer a compra do mês com menos esquecimentos, sem contas na calculadora e com o orçamento sempre à vista.
 
-1. Install dependencies
+Projeto de portfólio de Product Design, do discovery à versão funcional. O documento de visão completo está em [`docs/product-brief.md`](docs/product-brief.md).
 
-   ```bash
-   npm install
-   ```
+## O problema
 
-2. Start the app
+Na compra do mês, a lista fica no bloco de notas e as contas na calculadora do celular. Somar 12 molhos de tomate a R$ 5,99, guardar o total parcial e continuar somando interrompe a compra, e mesmo assim às vezes algum item fica para trás.
 
-   ```bash
-   npx expo start
-   ```
+## A proposta (hipótese)
 
-In the output, you'll find options to open the app in a
+1. **Planejar:** montar a lista antes de sair de casa.
+2. **Comprar:** registrar preço unitário e quantidade; subtotal, total e saldo do orçamento são calculados na hora.
+3. **Aprender:** usar compras anteriores para facilitar a próxima.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Escopo do MVP (hipótese)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- [ ] Criar uma compra com orçamento
+- [ ] Adicionar produtos à lista
+- [ ] Informar preço unitário e quantidade
+- [ ] Calcular subtotal, total acumulado e saldo automaticamente
+- [ ] Marcar produtos como comprados
+- [ ] Ver os itens pendentes
 
-## Get a fresh project
+Lista compartilhada, inventário da casa e histórico ficam para depois do discovery.
 
-When you're ready, run:
+## Stack
+
+- [Expo](https://expo.dev) (SDK 57) + React Native + TypeScript
+- [Expo Router](https://docs.expo.dev/router/introduction/) para navegação (rotas em `src/app/`)
+
+## Rodando localmente
+
+Pré-requisitos: Node.js 20+ e o app **Expo Go** no celular.
 
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Escaneie o QR code com a câmera (iOS) ou com o Expo Go (Android).
 
-### Other setup steps
+## Estrutura
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```
+src/
+  app/        # telas (cada arquivo é uma rota)
+  theme/      # tokens de cor, espaçamento e raio (paleta provisória)
+docs/
+  product-brief.md   # visão do produto
+  references/        # referências visuais
+```
 
-## Learn more
+## Status
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Conceito inicial. Decisões de produto ainda dependem de entrevistas e testes. Nada aqui é resultado validado.
