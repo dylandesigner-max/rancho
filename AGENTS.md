@@ -46,6 +46,24 @@ App de compra do mês (planejar → comprar → aprender). Leia `docs/product-br
 
 - Textos de interface em português do Brasil.
 - Valores monetários em centavos inteiros (nunca float) — ex.: 12 × R$ 5,99 = R$ 71,88.
-- Cores, espaçamentos e raios vêm de `src/theme/colors.ts`; a paleta é provisória.
+- Cores, tipografia, espaçamentos e raios vêm do Onda (`@/theme/onda`): `useOnda()` dá as cores do modo atual (Light/Dark); `text`, `space` e `radius` são estáticos. Nunca use hex solto nem primitivas direto nas telas.
 - MVP enxuto: não construir lista compartilhada, inventário ou histórico sem decisão explícita.
 - É um case de portfólio: não apresentar hipóteses como resultados validados.
+
+## Processo de design → código
+
+Design system: **Onda**. Fonte da verdade: o arquivo do Figma [Rancho](https://www.figma.com/design/imkUw2bVyRrBlHJt9v9Wsp/Rancho).
+
+1. Foundations primeiro (cores, tipografia, spacing, radius) como variáveis no Figma.
+2. Plano de telas.
+3. Uma tela por vez: Figma → aprovação de quem desenha → código.
+4. Componentes nascem conforme as telas pedem; nada de biblioteca especulativa.
+
+Nunca implemente UI no código antes da tela estar aprovada no Figma. Os tokens do código espelham os nomes das variáveis Onda no Figma.
+
+### Tokens Onda
+
+- `design/tokens/onda.figma.json` é o export das variáveis e text styles do Figma. Para sincronizar: reexporte do Figma, sobrescreva o JSON e rode `npm run tokens`.
+- `src/theme/onda/tokens.ts` é gerado. Não edite à mão.
+- Nomes: `bg/brand-pressed` no Figma → `color.bg.brandPressed`; `Amount/Large` → `text.amount.large`.
+- Fontes (Lilita One e Nunito Sans) entram via `@expo-google-fonts`, importadas por peso em `src/theme/onda/fonts.ts`. Novo peso no Figma = adicionar o import lá e o mapeamento em `scripts/build-tokens.mjs`.
