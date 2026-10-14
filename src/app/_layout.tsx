@@ -1,8 +1,10 @@
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { View } from 'react-native';
 
+import { AnimatedSplash } from '@/components/splash/animated-splash';
 import { useOnda, useOndaFonts } from '@/theme/onda';
 
 SplashScreen.preventAutoHideAsync();
@@ -10,19 +12,21 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useOndaFonts();
   const { color } = useOnda();
+  const [splashDone, setSplashDone] = useState(false);
+  const ready = fontsLoaded || !!fontError;
+  const finishSplash = useCallback(() => setSplashDone(true), []);
 
   useEffect(() => {
-    if (fontsLoaded || fontError) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded, fontError]);
+    // A splash nativa (símbolo sobre o creme) sai e a animação começa do mesmo quadro.
+    if (ready) SplashScreen.hide();
+  }, [ready]);
 
-  if (!fontsLoaded && !fontError) {
+  if (!ready) {
     return null;
   }
 
   return (
-    <>
+    <View style={{ flex: 1, backgroundColor: color.bg.canvas }}>
       <StatusBar style="auto" />
       <Stack
         screenOptions={{
@@ -30,6 +34,7 @@ export default function RootLayout() {
           contentStyle: { backgroundColor: color.bg.canvas },
         }}
       />
-    </>
+      {!splashDone && <AnimatedSplash onFinish={finishSplash} />}
+    </View>
   );
 }

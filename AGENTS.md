@@ -67,3 +67,11 @@ Nunca implemente UI no código antes da tela estar aprovada no Figma. Os tokens 
 - `src/theme/onda/tokens.ts` é gerado. Não edite à mão.
 - Nomes: `bg/brand-pressed` no Figma → `color.bg.brandPressed`; `Amount/Large` → `text.amount.large`.
 - Fontes (Lilita One e Nunito Sans) entram via `@expo-google-fonts`, importadas por peso em `src/theme/onda/fonts.ts`. Novo peso no Figma = adicionar o import lá e o mapeamento em `scripts/build-tokens.mjs`.
+
+### Componentes e telas
+
+- Componentes do Onda em `src/components/onda/`, um arquivo por componente do Figma (mesmo nome). Crie um novo só quando uma tela aprovada pedir.
+- Ícones: Lucide, sempre importados por arquivo (`lucide-react-native/icons/arrow-left`), nunca do pacote inteiro.
+- Telas de entrada em `src/app/(auth)/`; o resto do app vai em `src/app/(app)/`.
+- Contas: `src/lib/auth.ts` é um serviço SIMULADO até escolhermos o real. E-mails que contêm "erro" simulam falha.
+- Nunca passe dados pessoais (e-mail etc.) por parâmetro de rota: na versão web eles aparecem na URL.
