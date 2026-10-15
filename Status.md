@@ -2,7 +2,7 @@
 
 > **Leia este arquivo no início de toda sessão e atualize no fim.** Ele é a memória do projeto: o que existe no Figma e no código, o que foi decidido e o que vem a seguir. Assim uma sessão nova (local ou na nuvem) continua de onde a anterior parou sem refazer descobertas.
 >
-> **Última atualização:** 15/10/2026 · telas 1 a 9 implementadas; PWA publicado na Cloudflare (https://rancho.dylan-dsgner.workers.dev).
+> **Última atualização:** 16/10/2026 · **todas as telas do plano v2 (mais 06b, 14b e 14c) desenhadas e implementadas**; PWA publicado.
 
 ---
 
@@ -22,6 +22,7 @@
 ## 2. Processo de trabalho (regras)
 
 1. **Figma primeiro.** Cada tela é desenhada no Figma, revisada pelo designer e **só depois de aprovada** vai para o código.
+   - **Autonomia (16/10):** o Claude monta componentes e telas no Figma sem pedir licença; o designer avalia direto no Figma. Só decisões importantes de produto vêm como enquete.
 2. **Componentes sob demanda.** O Onda cresce com as telas: componente novo só quando uma tela pede.
 3. **O designer ajusta direto no Figma** (ex.: medidas de componentes). Ao sincronizar, ler os valores reais do Figma, conferir variantes irmãs e propagar para variantes, tokens e código.
 4. **Tokens do código espelham o Figma.** Nunca editar `src/theme/onda/tokens.ts` à mão.
@@ -43,16 +44,20 @@ Seções na página **Prototype** do Figma, cada uma com linha Light e Dark (fra
 | 7 | Nova compra (folha) | `07 · Nova compra` (75:680) | ✅ | ✅ `src/components/compra/nova-compra-sheet.tsx` |
 | 8 | Compra: lista vazia | `08 · Compra` (82:876) | ✅ | ✅ `src/app/(app)/compra.tsx` |
 | 9 | Adicionar item (folha) | `09 · Adicionar item` (93:888) | ✅ | ✅ `src/components/compra/adicionar-item-sheet.tsx` |
-| 10 | Compra em andamento | — | ⏳ próxima | ⚠️ lista provisória no código |
-| 11 | Colocar no carrinho | — | — | — |
-| 12 | Alertas de orçamento | — | — | — |
-| 13 | Concluir compra *(opcional)* | — | — | — |
-| 14 | Meu perfil | — | — | — (avatar mostra "Em breve") |
-| 15 | Editar perfil | — | — | — |
-| 16 | Excluir conta | — | — | — |
+| 10 | Compra em andamento | `10 · Compra em andamento` (116:1239) | ✅ | ✅ `src/app/(app)/compra.tsx` (⚠️ estado vazio das abas provisório) |
+| 11 | Colocar no carrinho (folha) | `11 · Colocar no carrinho` (121:1540) | ✅ | ✅ `src/components/compra/colocar-no-carrinho-sheet.tsx` |
+| 12 | Alertas de orçamento | `12 · Alertas de orçamento` (125:2096) | ✅ | ✅ `BudgetSummary` + prévia da folha 11 |
+| 13 | Concluir compra (folha; deixou de ser opcional) | `13 · Concluir compra` (129:2614) | ✅ | ✅ `src/components/compra/concluir-compra-sheet.tsx` |
+| 14 | Meu perfil | `14 · Meu perfil` (132:2754) | ✅ | ✅ `src/app/(app)/perfil.tsx` (⚠️ Termos/Privacidade mostram "Em breve") |
+| 14b | Foto de perfil (escolher, trocar, remover, ajustar) | `14b · Foto de perfil` (137:2892) | ✅ | ✅ `foto-de-perfil.tsx` + `ajustar-foto.tsx` |
+| 14c | Aparência (Automático, Claro, Escuro) | `14c · Aparência` (140:3098) | ✅ | ✅ `src/app/(app)/aparencia.tsx` |
+| 15 | Editar perfil | `15 · Editar perfil` (132:2900) | ✅ | ✅ `src/app/(app)/editar-perfil.tsx` |
+| 16 | Excluir conta | `16 · Excluir conta` (132:3060) | ✅ | ✅ `src/app/(app)/excluir-conta.tsx` |
+| 06b | Início com compra em andamento | `06b · Início com compra em andamento` (128:2530) | ✅ | ✅ `src/app/(app)/inicio.tsx` |
 
 **Lacunas conhecidas (não estão no plano v2, a desenhar):**
-- **Início com compra em andamento** (cartão com orçamento e progresso). Hoje o código mostra um texto provisório + "Abrir compra". Proposto desenhar depois das telas 8–10.
+- ~~Início com compra em andamento~~ → desenhado como 06b (16/10).
+- **Estado vazio de cada aba** da tela 10 (ex.: "Tudo no carrinho!").
 - **Editar nome/orçamento da compra** depois de criada.
 - **Depois de adicionar item:** a folha fecha (padrão atual). Alternativa em aberto: continuar aberta para o próximo item.
 
@@ -79,18 +84,25 @@ Amostra visual: página **Design System** → frame **"Onda · Foundations"** (2
 | Logo (Full, Mark) | 30:32 | Vetores do Branding; cores = `bg/brand`, `bg/canvas`, `text/primary`. |
 | Button (Primary: Default, Pressed, Disabled, Loading) | 35:11 | Altura 60, face 52 + borda 3D de 8 px (`bg/brand-pressed`). Pressionado afunda 8. |
 | SocialButton (Apple, Google) | 35:23 | Textos oficiais pt-BR. Apple só no iOS; no app final usar botão nativo. |
-| Ícones (Lucide, 24, traço 2) | vários | arrow-left, eye, eye-off, circle-alert, loader-circle, check, mail-check, shopping-basket, clipboard-list, x, minus, plus. No código: import por arquivo (`lucide-react-native/icons/<nome>`). |
+| Ícones (Lucide, 24, traço 2) | vários | arrow-left, eye, eye-off, circle-alert, loader-circle, check, mail-check, shopping-basket, clipboard-list, x, minus, plus, chevron-right, camera. No código: import por arquivo (`lucide-react-native/icons/<nome>`). |
 | IconButton | 46:25 | Área de toque 44. |
 | TextField (Default, Focus, Filled, Error) | 46:69 | Campo 52, borda 1 (2 em foco/erro). |
 | Checkbox (false, true) | 54:16 | Linha inteira tocável. |
-| Avatar | 65:15 | Inicial do nome, círculo 40 / toque 44. |
+| Avatar (Size: Small, Large · Content: Initial, Photo) | 136:62 | Small: círculo 40 / toque 44. Large: 120, com selo de câmera opcional. Photo: foto em círculo com contorno `border/default`. (A variante Small/Initial manteve o id 65:15.) |
 | EmptyState | 65:18 | Círculo 96 `bg/brand-subtle` + contorno 2 `border/brand-subtle`. |
 | SheetHeader / BottomSheet | 74:20 | Alça, título, fechar; folha `bg/surface` com cantos `radius/xl` sobre `bg/overlay`. |
 | AmountField (Default, Focus, Filled) | 74:51 | Mesmas medidas do TextField; "R$" fixo; digitação a partir dos centavos. |
 | TopBar | 82:24 | Voltar + título opcional (Heading/Medium). |
 | ProgressBar | 82:51 | Trilho `bg/subtle`, preenchimento **`bg/accent` (laranja)**. |
-| BudgetSummary (Normal) | 82:64 | Saldo em destaque (Amount/Large), barra, gasto/orçamento. Estados de alerta virão na tela 12. |
+| BudgetSummary (Normal, Warning, Over) | 82:64 | Saldo em destaque (Amount/Large), barra, gasto/orçamento. Warning (≥ 80%): fundo `bg/warning-subtle`, barra `bg/warning`, aviso. Over: fundo `bg/danger-subtle`, "Acima do orçamento" + excedente em `text/danger`. Propriedade de texto Alerta. |
 | QuantityStepper | 91:27 | − e + em `icon/accent` sobre `bg/accent-subtle`; mínimo 1. |
+| Button · Danger | 130:53 | Contorno `border/danger`, texto `text/danger`, altura 52; ação destrutiva principal (excluir conta). |
+| RadioItem (Selected true/false) | 139:50 | Opção de escolha única: rótulo, descrição opcional, rádio à direita (anel `border/brand` + ponto `bg/brand`). |
+| ListItem (Default, Danger) | 130:52 | Linha de menu (mín. 52): rótulo, valor opcional, chevron opcional; agrupada em cartão `bg/surface`. |
+| Button · Ghost | 120:29 | Só texto `text/brand`, altura 52; ação secundária (ex.: "Devolver para pendentes"). |
+| Tab (Active, Inactive) | 115:30 | Aba com contador; ativa em `bg/surface` com contador `text/accent` sobre `bg/accent-subtle`. |
+| Tabs | 115:31 | Trilha `bg/subtle` com duas Tab (Pendentes / No carrinho). |
+| ItemRow (Pending, InCart) | 115:54 | Linha tocável (mín. 64): círculo vazio ou check `bg/brand`; nome, detalhe e valor (estimado em `text/secondary`; subtotal em `text/accent`). |
 
 ## 5. Código
 
@@ -98,12 +110,15 @@ Amostra visual: página **Design System** → frame **"Onda · Foundations"** (2
 
 ```
 src/app/(auth)/        telas 2–5 (index = Boas-vindas)
-src/app/(app)/         inicio.tsx (tela 6), compra.tsx (tela 8)
+src/app/(app)/         inicio (6/06b), compra (8/10), perfil (14), foto-de-perfil e ajustar-foto (14b),
+                       aparencia (14c), editar-perfil (15), excluir-conta (16)
 src/components/onda/   componentes do design system
 src/components/auth/   AuthLayout, AuthHeader, TextLink
-src/components/compra/ folhas Nova compra e Adicionar item
+src/components/compra/ folhas Nova compra, Adicionar item, Colocar no carrinho, Concluir compra
+src/components/perfil/ Grupo (título + cartão de linhas)
 src/components/splash/ animação da Splash
-src/lib/               auth (simulado), store (salvo no aparelho), money, validation, notice, pwa
+src/lib/               auth (simulado), store (salvo no aparelho), money, validation, notice, pwa,
+                       session (sair → Boas-vindas), photo-draft (foto à espera do recorte)
 src/theme/onda/        tokens gerados + fontes + useOnda()
 design/tokens/         export das variáveis do Figma (onda.figma.json)
 scripts/build-tokens.mjs  gera src/theme/onda/tokens.ts (npm run tokens)
@@ -120,12 +135,14 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 - **Sincronizar tokens:** reexportar as variáveis do Figma para `design/tokens/onda.figma.json` e rodar `npm run tokens`.
 - **Nada de dados pessoais em parâmetros de rota** (na web viram URL).
 - **Trechos sem design** ficam marcados com `// PROVISÓRIO`.
+- **Aparência:** `useOnda()` usa a preferência salva (Automático/Claro/Escuro) antes do modo do aparelho; a barra de status e a cor do PWA acompanham (`applyThemeColor`).
+- **Ajustar foto:** arrastar e pinçar com Gesture Handler + Reanimated; funciona com toque (testado com toque simulado no Chromium). Com mouse no computador o arrastar não ativa — não é o uso alvo.
 - **Web:** campos usam `noWebFocusOutline` e `flexBasis: 0` (senão o navegador desenha contorno amarelo e estica o input). Animações dentro de `Modal` com o `Animated` do React Native (o Reanimated não anima entrada dentro de Modal na web).
 
 ### 5.3 Simulações (até existir backend)
 
 - **Contas:** `src/lib/auth.ts` só imita a rede. Qualquer e-mail entra; **e-mails com "erro" simulam falha** (ex.: `erro@rancho.app`). No login, o nome vem do e-mail (dylan@… → Dylan).
-- **Dados:** `src/lib/store.ts` guarda usuário e compra **no aparelho** (AsyncStorage; na web, `localStorage`), chave `rancho/estado/v1`. Quem já entrou abre direto no Início. Ainda não há sair da conta nem sincronização.
+- **Dados:** `src/lib/store.ts` guarda usuário e compra **no aparelho** (AsyncStorage; na web, `localStorage`), chave `rancho/estado/v1`. Guarda também e-mail, foto (data URI JPEG 512 px) e aparência. Quem já entrou abre direto no Início. Sair limpa a conta e a compra (a aparência fica); excluir apaga tudo. Sem sincronização.
 
 ## 6. Decisões (registro)
 
@@ -143,6 +160,12 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 | 14/10 | Orçamento obrigatório ao criar compra; saldo é o número em destaque no resumo. |
 | 14/10 | Usar o **laranja (`bg/accent`) em partes dos componentes** para o app não ficar todo verde (ex.: barra de progresso, stepper, subtotal). Cuidado para não confundir com o âmbar de alerta na tela 12. |
 | 14/10 | Uso pessoal sem lojas: **web app instalável (PWA)** no iPhone. Login com Apple fica indisponível nessa fase. |
+| 16/10 | Tela extra **14c · Aparência** (pedido do designer): Automático (padrão, segue o aparelho), Claro ou Escuro; vale na hora e fica salvo no aparelho. No código, `useOnda()` passa a respeitar a preferência antes do `useColorScheme()`. |
+| 16/10 | Tela extra **14b · Foto de perfil** (pedido do designer): foto escolhida pelo seletor do sistema, recorte em círculo, remover volta à inicial. Fica só no aparelho até existir serviço de contas. |
+| 16/10 | **Concluir compra = resumo e recomeça**: mostra gasto final e o que ficou de fora; ao confirmar, a compra é apagada e o Início volta ao vazio. Sem histórico no MVP. Tela 13 deixa de ser opcional. |
+| 16/10 | Uma compra por vez no MVP: com compra aberta, o Início mostra a 06b ("Continuar" / "Concluir"). |
+| 16/10 | Alerta de orçamento: **âmbar a partir de 80%** do orçamento; vermelho quando passa. Nada é bloqueado. |
+| 16/10 | Na folha "Colocar no carrinho" o **preço é obrigatório**; item do carrinho abre a mesma folha para editar ou devolver para pendentes. |
 | 15/10 | PWA: dados no aparelho com AsyncStorage (vale para web e nativo); service worker próprio gerado no build (sem biblioteca); deploy na Cloudflare via Workers com arquivos estáticos (`wrangler.jsonc`). Ícones do PWA provisórios até o ícone do app ser desenhado. |
 
 ## 7. Ambiente e ferramentas
@@ -167,7 +190,9 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 
 ## 9. Próximos passos
 
-1. **Tela 10 · Compra em andamento** no Figma (abas Pendentes / No carrinho, resumo sempre visível). Substitui a lista provisória.
-2. Telas 11 (colocar no carrinho, com prévia do cálculo) e 12 (alertas: BudgetSummary ganha estados).
+1. **Testar no iPhone (PWA)** o fluxo completo: compra, carrinho, alertas, concluir, perfil, foto (arrastar/pinçar) e aparência.
+2. Lacunas ainda sem desenho: **estado vazio das abas** (hoje texto provisório), editar nome/orçamento da compra, textos de Termos e Privacidade.
+3. Ícone do app no Figma (PWA e nativo ainda provisórios).
+4. Depois: Supabase (contas reais + sincronização); login com Google.
 3. **PWA:** publicado. Falta testar no iPhone (instalar, abrir offline) e desenhar o **ícone do app** no Figma (hoje provisório).
 4. Depois: Supabase (contas reais + sincronização), telas 13–16.
