@@ -47,12 +47,20 @@ Escaneie o QR code com a câmera (iOS) ou com o Expo Go (Android).
 
 ```
 src/
-  app/        # telas (cada arquivo é uma rota)
-  theme/      # tokens de cor, espaçamento e raio (paleta provisória)
+  app/          # telas (cada arquivo é uma rota)
+  theme/onda/   # tokens do design system Onda (gerados a partir do Figma)
+design/tokens/  # export das variáveis do Figma
+scripts/        # gerador de tokens (npm run tokens)
 docs/
   product-brief.md   # visão do produto
-  references/        # referências visuais
+  references/        # referências visuais iniciais
 ```
+
+## Design system: Onda
+
+O Onda nasce no [Figma](https://www.figma.com/design/imkUw2bVyRrBlHJt9v9Wsp/Rancho) e cresce junto com as telas. Cada tela é desenhada e aprovada no Figma antes de ir para o código, e componentes só são criados quando uma tela precisa deles.
+
+Foundations v0.1: cores derivadas da marca (verde, laranja, neutro creme→cacau, mais âmbar e vermelho para alertas de orçamento) com modos claro e escuro, tipografia Lilita One + Nunito Sans, espaçamento em grade de 4 px e raios.
 
 ## Status
 

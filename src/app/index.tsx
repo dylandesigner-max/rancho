@@ -1,18 +1,23 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { colors, radius, spacing } from '@/theme/colors';
+import { radius, space, text, useOnda } from '@/theme/onda';
 
+// Placeholder até a primeira tela ser aprovada no Figma.
 export default function Home() {
+  const { color } = useOnda();
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: color.bg.canvas }]}>
       <View style={styles.content}>
-        <Text style={styles.logo}>Rancho</Text>
-        <Text style={styles.slogan}>O controle da sua compra na palma da sua mão.</Text>
+        <Text style={[text.display.large, { color: color.text.brand }]}>Rancho</Text>
+        <Text style={[text.body.large, styles.slogan, { color: color.text.primary }]}>
+          O controle da sua compra na palma da sua mão.
+        </Text>
       </View>
 
-      <View style={styles.badge}>
-        <Text style={styles.badgeText}>Em construção</Text>
+      <View style={[styles.badge, { backgroundColor: color.bg.accent }]}>
+        <Text style={[text.label.medium, { color: color.text.onAccent }]}>Em construção</Text>
       </View>
     </SafeAreaView>
   );
@@ -21,37 +26,21 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
-    padding: spacing.lg,
+    padding: space.xl,
     justifyContent: 'space-between',
   },
   content: {
     flex: 1,
     justifyContent: 'center',
-    gap: spacing.sm,
-  },
-  logo: {
-    fontSize: 56,
-    fontWeight: '800',
-    color: colors.primary,
-    letterSpacing: -1,
+    gap: space.xs,
   },
   slogan: {
-    fontSize: 20,
-    lineHeight: 28,
-    fontWeight: '500',
-    color: colors.text,
     maxWidth: 300,
   },
   badge: {
     alignSelf: 'flex-start',
-    backgroundColor: colors.accent,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    borderRadius: radius.lg,
-  },
-  badgeText: {
-    color: colors.onPrimary,
-    fontWeight: '700',
+    paddingHorizontal: space.md,
+    paddingVertical: space.xs,
+    borderRadius: radius.full,
   },
 });
