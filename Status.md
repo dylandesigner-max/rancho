@@ -2,7 +2,7 @@
 
 > **Leia este arquivo no início de toda sessão e atualize no fim.** Ele é a memória do projeto: o que existe no Figma e no código, o que foi decidido e o que vem a seguir. Assim uma sessão nova (local ou na nuvem) continua de onde a anterior parou sem refazer descobertas.
 >
-> **Última atualização:** 15/10/2026 · telas 1 a 9 implementadas; PWA publicado na Cloudflare (https://rancho.dylan-dsgner.workers.dev).
+> **Última atualização:** 16/10/2026 · telas 1 a 9 implementadas; PWA publicado; **todas as telas do plano v2 desenhadas no Figma** (06b e 10 a 16 aguardando revisão).
 
 ---
 
@@ -47,13 +47,15 @@ Seções na página **Prototype** do Figma, cada uma com linha Light e Dark (fra
 | 10 | Compra em andamento | `10 · Compra em andamento` (116:1239) | 🟡 aguardando revisão | ⚠️ lista provisória no código |
 | 11 | Colocar no carrinho (folha) | `11 · Colocar no carrinho` (121:1540) | 🟡 aguardando revisão | — |
 | 12 | Alertas de orçamento | `12 · Alertas de orçamento` (125:2096) | 🟡 aguardando revisão | — |
-| 13 | Concluir compra *(opcional)* | — | — | — |
-| 14 | Meu perfil | — | — | — (avatar mostra "Em breve") |
-| 15 | Editar perfil | — | — | — |
-| 16 | Excluir conta | — | — | — |
+| 13 | Concluir compra (folha; deixou de ser opcional) | `13 · Concluir compra` (129:2614) | 🟡 aguardando revisão | — |
+| 14 | Meu perfil | `14 · Meu perfil` (132:2754) | 🟡 aguardando revisão | — (avatar mostra "Em breve") |
+| 15 | Editar perfil | `15 · Editar perfil` (132:2900) | 🟡 aguardando revisão | — |
+| 16 | Excluir conta | `16 · Excluir conta` (132:3060) | 🟡 aguardando revisão | — |
+| 06b | Início com compra em andamento | `06b · Início com compra em andamento` (128:2530) | 🟡 aguardando revisão | ⚠️ texto provisório no código |
 
 **Lacunas conhecidas (não estão no plano v2, a desenhar):**
-- **Início com compra em andamento** (cartão com orçamento e progresso). Hoje o código mostra um texto provisório + "Abrir compra". Proposto desenhar depois das telas 8–10.
+- ~~Início com compra em andamento~~ → desenhado como 06b (16/10).
+- **Estado vazio de cada aba** da tela 10 (ex.: "Tudo no carrinho!").
 - **Editar nome/orçamento da compra** depois de criada.
 - **Depois de adicionar item:** a folha fecha (padrão atual). Alternativa em aberto: continuar aberta para o próximo item.
 
@@ -80,7 +82,7 @@ Amostra visual: página **Design System** → frame **"Onda · Foundations"** (2
 | Logo (Full, Mark) | 30:32 | Vetores do Branding; cores = `bg/brand`, `bg/canvas`, `text/primary`. |
 | Button (Primary: Default, Pressed, Disabled, Loading) | 35:11 | Altura 60, face 52 + borda 3D de 8 px (`bg/brand-pressed`). Pressionado afunda 8. |
 | SocialButton (Apple, Google) | 35:23 | Textos oficiais pt-BR. Apple só no iOS; no app final usar botão nativo. |
-| Ícones (Lucide, 24, traço 2) | vários | arrow-left, eye, eye-off, circle-alert, loader-circle, check, mail-check, shopping-basket, clipboard-list, x, minus, plus. No código: import por arquivo (`lucide-react-native/icons/<nome>`). |
+| Ícones (Lucide, 24, traço 2) | vários | arrow-left, eye, eye-off, circle-alert, loader-circle, check, mail-check, shopping-basket, clipboard-list, x, minus, plus, chevron-right. No código: import por arquivo (`lucide-react-native/icons/<nome>`). |
 | IconButton | 46:25 | Área de toque 44. |
 | TextField (Default, Focus, Filled, Error) | 46:69 | Campo 52, borda 1 (2 em foco/erro). |
 | Checkbox (false, true) | 54:16 | Linha inteira tocável. |
@@ -92,6 +94,8 @@ Amostra visual: página **Design System** → frame **"Onda · Foundations"** (2
 | ProgressBar | 82:51 | Trilho `bg/subtle`, preenchimento **`bg/accent` (laranja)**. |
 | BudgetSummary (Normal, Warning, Over) | 82:64 | Saldo em destaque (Amount/Large), barra, gasto/orçamento. Warning (≥ 80%): fundo `bg/warning-subtle`, barra `bg/warning`, aviso. Over: fundo `bg/danger-subtle`, "Acima do orçamento" + excedente em `text/danger`. Propriedade de texto Alerta. |
 | QuantityStepper | 91:27 | − e + em `icon/accent` sobre `bg/accent-subtle`; mínimo 1. |
+| Button · Danger | 130:53 | Contorno `border/danger`, texto `text/danger`, altura 52; ação destrutiva principal (excluir conta). |
+| ListItem (Default, Danger) | 130:52 | Linha de menu (mín. 52): rótulo, valor opcional, chevron opcional; agrupada em cartão `bg/surface`. |
 | Button · Ghost | 120:29 | Só texto `text/brand`, altura 52; ação secundária (ex.: "Devolver para pendentes"). |
 | Tab (Active, Inactive) | 115:30 | Aba com contador; ativa em `bg/surface` com contador `text/accent` sobre `bg/accent-subtle`. |
 | Tabs | 115:31 | Trilha `bg/subtle` com duas Tab (Pendentes / No carrinho). |
@@ -148,6 +152,8 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 | 14/10 | Orçamento obrigatório ao criar compra; saldo é o número em destaque no resumo. |
 | 14/10 | Usar o **laranja (`bg/accent`) em partes dos componentes** para o app não ficar todo verde (ex.: barra de progresso, stepper, subtotal). Cuidado para não confundir com o âmbar de alerta na tela 12. |
 | 14/10 | Uso pessoal sem lojas: **web app instalável (PWA)** no iPhone. Login com Apple fica indisponível nessa fase. |
+| 16/10 | **Concluir compra = resumo e recomeça**: mostra gasto final e o que ficou de fora; ao confirmar, a compra é apagada e o Início volta ao vazio. Sem histórico no MVP. Tela 13 deixa de ser opcional. |
+| 16/10 | Uma compra por vez no MVP: com compra aberta, o Início mostra a 06b ("Continuar" / "Concluir"). |
 | 16/10 | Alerta de orçamento: **âmbar a partir de 80%** do orçamento; vermelho quando passa. Nada é bloqueado. |
 | 16/10 | Na folha "Colocar no carrinho" o **preço é obrigatório**; item do carrinho abre a mesma folha para editar ou devolver para pendentes. |
 | 15/10 | PWA: dados no aparelho com AsyncStorage (vale para web e nativo); service worker próprio gerado no build (sem biblioteca); deploy na Cloudflare via Workers com arquivos estáticos (`wrangler.jsonc`). Ícones do PWA provisórios até o ícone do app ser desenhado. |
@@ -174,7 +180,8 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 
 ## 9. Próximos passos
 
-1. **Revisar no Figma as telas 10 e 11** (desenhadas em 16/10). Depois de aprovadas, implementar no código (substitui a lista provisória).
-2. Revisar a tela 12 (alertas). Em seguida: Início com compra em andamento (lacuna) e tela 13.
+1. **Revisar no Figma as telas 06b e 10 a 16** (desenhadas em 16/10). Ajustes do designer entram direto no Figma; ao sincronizar, ler os valores reais.
+2. Implementar no código, na ordem do fluxo: 10 + 11 (componentes Tabs, ItemRow, Button Ghost) → 12 (BudgetSummary com alertas) → 06b + 13 → 14 a 16 (ListItem, Button Danger).
+3. Lacunas ainda sem desenho: estado vazio das abas, editar nome/orçamento da compra.
 3. **PWA:** publicado. Falta testar no iPhone (instalar, abrir offline) e desenhar o **ícone do app** no Figma (hoje provisório).
 4. Depois: Supabase (contas reais + sincronização), telas 13–16.
