@@ -2,7 +2,7 @@ import { useColorScheme } from 'react-native';
 
 import { color, type ColorTokens } from './tokens';
 
-export { useOndaFonts } from './fonts';
+export { font, useOndaFonts } from './fonts';
 export { color, primitives, radius, space, text, type ColorTokens } from './tokens';
 
 /** Cores semânticas do modo atual do sistema (Light/Dark), como no Figma. */

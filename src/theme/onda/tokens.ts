@@ -13,7 +13,9 @@ export const primitives = {
     "700": "#2D7227",
     "800": "#0F562C",
     "900": "#033A26",
-    "950": "#072019"
+    "950": "#072019",
+    "400A40": "#70BA0066",
+    "300A40": "#8EE20F66"
   },
   "orange": {
     "50": "#FEF4F1",
@@ -118,6 +120,7 @@ export type ColorTokens = {
     "default": string;
     "strong": string;
     "brand": string;
+    "brandSubtle": string;
     "focus": string;
     "danger": string;
   };
@@ -170,6 +173,7 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
       "default": "#E8DDC9",
       "strong": "#BDAE9F",
       "brand": "#548C00",
+      "brandSubtle": "#70BA0066",
       "focus": "#548C00",
       "danger": "#D22539"
     }
@@ -220,6 +224,7 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
       "default": "#473632",
       "strong": "#88766C",
       "brand": "#8EE20F",
+      "brandSubtle": "#8EE20F66",
       "focus": "#8EE20F",
       "danger": "#ED9693"
     }

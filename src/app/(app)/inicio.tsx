@@ -3,8 +3,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { radius, space, text, useOnda } from '@/theme/onda';
 
-// Placeholder até a primeira tela ser aprovada no Figma.
-export default function Home() {
+// Placeholder do Início (tela 6) até ela ser desenhada e aprovada no Figma.
+export default function Inicio() {
   const { color } = useOnda();
 
   return (
