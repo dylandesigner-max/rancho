@@ -49,6 +49,7 @@ Seções na página **Prototype** do Figma, cada uma com linha Light e Dark (fra
 | 12 | Alertas de orçamento | `12 · Alertas de orçamento` (125:2096) | 🟡 aguardando revisão | — |
 | 13 | Concluir compra (folha; deixou de ser opcional) | `13 · Concluir compra` (129:2614) | 🟡 aguardando revisão | — |
 | 14 | Meu perfil | `14 · Meu perfil` (132:2754) | 🟡 aguardando revisão | — (avatar mostra "Em breve") |
+| 14b | Foto de perfil (escolher, trocar, remover, ajustar) | `14b · Foto de perfil` (137:2892) | 🟡 aguardando revisão | — |
 | 15 | Editar perfil | `15 · Editar perfil` (132:2900) | 🟡 aguardando revisão | — |
 | 16 | Excluir conta | `16 · Excluir conta` (132:3060) | 🟡 aguardando revisão | — |
 | 06b | Início com compra em andamento | `06b · Início com compra em andamento` (128:2530) | 🟡 aguardando revisão | ⚠️ texto provisório no código |
@@ -82,11 +83,11 @@ Amostra visual: página **Design System** → frame **"Onda · Foundations"** (2
 | Logo (Full, Mark) | 30:32 | Vetores do Branding; cores = `bg/brand`, `bg/canvas`, `text/primary`. |
 | Button (Primary: Default, Pressed, Disabled, Loading) | 35:11 | Altura 60, face 52 + borda 3D de 8 px (`bg/brand-pressed`). Pressionado afunda 8. |
 | SocialButton (Apple, Google) | 35:23 | Textos oficiais pt-BR. Apple só no iOS; no app final usar botão nativo. |
-| Ícones (Lucide, 24, traço 2) | vários | arrow-left, eye, eye-off, circle-alert, loader-circle, check, mail-check, shopping-basket, clipboard-list, x, minus, plus, chevron-right. No código: import por arquivo (`lucide-react-native/icons/<nome>`). |
+| Ícones (Lucide, 24, traço 2) | vários | arrow-left, eye, eye-off, circle-alert, loader-circle, check, mail-check, shopping-basket, clipboard-list, x, minus, plus, chevron-right, camera. No código: import por arquivo (`lucide-react-native/icons/<nome>`). |
 | IconButton | 46:25 | Área de toque 44. |
 | TextField (Default, Focus, Filled, Error) | 46:69 | Campo 52, borda 1 (2 em foco/erro). |
 | Checkbox (false, true) | 54:16 | Linha inteira tocável. |
-| Avatar | 65:15 | Inicial do nome, círculo 40 / toque 44. |
+| Avatar (Size: Small, Large · Content: Initial, Photo) | 136:62 | Small: círculo 40 / toque 44. Large: 120, com selo de câmera opcional. Photo: foto em círculo com contorno `border/default`. (A variante Small/Initial manteve o id 65:15.) |
 | EmptyState | 65:18 | Círculo 96 `bg/brand-subtle` + contorno 2 `border/brand-subtle`. |
 | SheetHeader / BottomSheet | 74:20 | Alça, título, fechar; folha `bg/surface` com cantos `radius/xl` sobre `bg/overlay`. |
 | AmountField (Default, Focus, Filled) | 74:51 | Mesmas medidas do TextField; "R$" fixo; digitação a partir dos centavos. |
@@ -152,6 +153,7 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 | 14/10 | Orçamento obrigatório ao criar compra; saldo é o número em destaque no resumo. |
 | 14/10 | Usar o **laranja (`bg/accent`) em partes dos componentes** para o app não ficar todo verde (ex.: barra de progresso, stepper, subtotal). Cuidado para não confundir com o âmbar de alerta na tela 12. |
 | 14/10 | Uso pessoal sem lojas: **web app instalável (PWA)** no iPhone. Login com Apple fica indisponível nessa fase. |
+| 16/10 | Tela extra **14b · Foto de perfil** (pedido do designer): foto escolhida pelo seletor do sistema, recorte em círculo, remover volta à inicial. Fica só no aparelho até existir serviço de contas. |
 | 16/10 | **Concluir compra = resumo e recomeça**: mostra gasto final e o que ficou de fora; ao confirmar, a compra é apagada e o Início volta ao vazio. Sem histórico no MVP. Tela 13 deixa de ser opcional. |
 | 16/10 | Uma compra por vez no MVP: com compra aberta, o Início mostra a 06b ("Continuar" / "Concluir"). |
 | 16/10 | Alerta de orçamento: **âmbar a partir de 80%** do orçamento; vermelho quando passa. Nada é bloqueado. |
@@ -180,8 +182,8 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 
 ## 9. Próximos passos
 
-1. **Revisar no Figma as telas 06b e 10 a 16** (desenhadas em 16/10). Ajustes do designer entram direto no Figma; ao sincronizar, ler os valores reais.
-2. Implementar no código, na ordem do fluxo: 10 + 11 (componentes Tabs, ItemRow, Button Ghost) → 12 (BudgetSummary com alertas) → 06b + 13 → 14 a 16 (ListItem, Button Danger).
+1. **Revisar no Figma as telas 06b, 10 a 16 e 14b** (desenhadas em 16/10). Ajustes do designer entram direto no Figma; ao sincronizar, ler os valores reais.
+2. Implementar no código, na ordem do fluxo: 10 + 11 (componentes Tabs, ItemRow, Button Ghost) → 12 (BudgetSummary com alertas) → 06b + 13 → 14, 14b, 15 e 16 (ListItem, Button Danger, Avatar com foto).
 3. Lacunas ainda sem desenho: estado vazio das abas, editar nome/orçamento da compra.
 3. **PWA:** publicado. Falta testar no iPhone (instalar, abrir offline) e desenhar o **ícone do app** no Figma (hoje provisório).
 4. Depois: Supabase (contas reais + sincronização), telas 13–16.
