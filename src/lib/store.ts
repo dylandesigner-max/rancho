@@ -34,11 +34,20 @@ type State = {
   /** Foto de perfil como data URI (JPEG reduzido). null = usa a inicial do nome. */
   photoUri: string | null;
   appearance: Appearance;
+  /** O que mudou no perfil e ainda falta enviar ao Supabase (ver profile.ts). */
+  pendingProfile: { name: boolean; photo: boolean };
   purchase: Purchase | null;
 };
 
 const STORAGE_KEY = 'rancho/estado/v1';
-const INITIAL: State = { userName: null, userEmail: null, photoUri: null, appearance: 'system', purchase: null };
+const INITIAL: State = {
+  userName: null,
+  userEmail: null,
+  photoUri: null,
+  appearance: 'system',
+  pendingProfile: { name: false, photo: false },
+  purchase: null,
+};
 
 let state: State = INITIAL;
 let hydrated = false;
@@ -86,6 +95,11 @@ export function useStoreHydrated(): boolean {
   return useSyncExternalStore(subscribe, () => hydrated, () => hydrated);
 }
 
+/** Leitura fora de componentes (ex.: sincronizar o perfil). */
+export function getState(): Readonly<State> {
+  return state;
+}
+
 function parseSaved(raw: string): Partial<State> {
   const saved = JSON.parse(raw) as Partial<State> | null;
   if (!saved || typeof saved !== 'object') return {};
@@ -94,6 +108,8 @@ function parseSaved(raw: string): Partial<State> {
   if (typeof saved.userEmail === 'string') next.userEmail = saved.userEmail;
   if (typeof saved.photoUri === 'string') next.photoUri = saved.photoUri;
   if (saved.appearance === 'light' || saved.appearance === 'dark') next.appearance = saved.appearance;
+  const pending = saved.pendingProfile;
+  if (pending && typeof pending === 'object') next.pendingProfile = { name: !!pending.name, photo: !!pending.photo };
   const p = saved.purchase;
   if (p && typeof p.name === 'string' && Number.isInteger(p.budgetCents) && Array.isArray(p.items)) {
     next.purchase = p;
@@ -109,22 +125,31 @@ const updateItem = (id: string, change: (item: Item) => Item) => {
 };
 
 export const actions = {
-  /** Entrou ou criou conta (serviço simulado em auth.ts). */
-  signIn(name: string, email: string) {
-    setState({ userName: name, userEmail: email });
+  /** Entrou ou criou conta (auth.ts). A foto vem do perfil, quando houver. */
+  signIn(name: string, email: string, photoUri: string | null = null) {
+    setState({ userName: name, userEmail: email, photoUri, pendingProfile: INITIAL.pendingProfile });
   },
+  /** Nome editado no app (tela 15): fica marcado até subir para o Supabase. */
   setUserName(name: string) {
-    setState({ userName: name });
+    setState({ userName: name, pendingProfile: { ...state.pendingProfile, name: true } });
   },
+  /** Foto escolhida ou removida no app (tela 14b): fica marcada até subir para o Supabase. */
   setPhoto(uri: string | null) {
-    setState({ photoUri: uri });
+    setState({ photoUri: uri, pendingProfile: { ...state.pendingProfile, photo: true } });
+  },
+  /** Parte do perfil enviada ao Supabase. */
+  profileSynced(part: 'name' | 'photo') {
+    setState({ pendingProfile: { ...state.pendingProfile, [part]: false } });
   },
   setAppearance(appearance: Appearance) {
     setState({ appearance });
   },
-  /** Sai da conta. A aparência é do aparelho e fica. */
+  /**
+   * Sai da conta. A aparência é do aparelho e fica. A compra também fica: enquanto ela
+   * não é guardada no Supabase (fase B), este aparelho tem a única cópia.
+   */
   signOut() {
-    setState({ ...INITIAL, appearance: state.appearance });
+    setState({ ...INITIAL, appearance: state.appearance, purchase: state.purchase });
   },
   /** Exclui a conta: apaga tudo o que está guardado no aparelho. */
   deleteAccount() {

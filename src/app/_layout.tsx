@@ -6,6 +6,7 @@ import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { AnimatedSplash } from '@/components/splash/animated-splash';
+import { initAuth } from '@/lib/auth';
 import { applyThemeColor, registerServiceWorker } from '@/lib/pwa';
 import { hydrateStore, useStoreHydrated } from '@/lib/store';
 import { useOnda, useOndaFonts } from '@/theme/onda';
@@ -16,12 +17,19 @@ export default function RootLayout() {
   const [fontsLoaded, fontError] = useOndaFonts();
   const { color, scheme } = useOnda();
   const hydrated = useStoreHydrated();
+  const [authReady, setAuthReady] = useState(false);
   const [splashDone, setSplashDone] = useState(false);
-  const ready = (fontsLoaded || !!fontError) && hydrated;
+  const ready = (fontsLoaded || !!fontError) && hydrated && authReady;
   const finishSplash = useCallback(() => setSplashDone(true), []);
 
   useEffect(() => {
-    hydrateStore();
+    // Confere a conta depois de carregar o que está salvo. Sem internet, não segura
+    // a abertura do app por mais de 3 s: segue com o que está no aparelho.
+    const timeout = new Promise((resolve) => setTimeout(resolve, 3000));
+    hydrateStore()
+      .then(() => Promise.race([initAuth(), timeout]))
+      .catch(() => {})
+      .finally(() => setAuthReady(true));
     registerServiceWorker();
   }, []);
 

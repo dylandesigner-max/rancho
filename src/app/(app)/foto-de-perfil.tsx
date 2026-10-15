@@ -7,6 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Avatar, Button, TopBar } from '@/components/onda';
 import { showNotice } from '@/lib/notice';
 import { photoDraft } from '@/lib/photo-draft';
+import { syncProfile } from '@/lib/profile';
 import { actions, useStore } from '@/lib/store';
 import { space, text, useOnda } from '@/theme/onda';
 
@@ -54,7 +55,16 @@ export default function FotoDePerfil() {
       </View>
       <View style={styles.footer}>
         <Button label={photoUri ? 'Trocar foto' : 'Escolher foto'} loading={picking} onPress={choose} />
-        {photoUri ? <Button variant="ghost" label="Remover foto" onPress={() => actions.setPhoto(null)} /> : null}
+        {photoUri ? (
+          <Button
+            variant="ghost"
+            label="Remover foto"
+            onPress={() => {
+              actions.setPhoto(null);
+              syncProfile();
+            }}
+          />
+        ) : null}
       </View>
     </SafeAreaView>
   );

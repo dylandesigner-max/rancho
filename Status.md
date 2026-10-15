@@ -2,7 +2,7 @@
 
 > **Leia este arquivo no início de toda sessão e atualize no fim.** Ele é a memória do projeto: o que existe no Figma e no código, o que foi decidido e o que vem a seguir. Assim uma sessão nova (local ou na nuvem) continua de onde a anterior parou sem refazer descobertas.
 >
-> **Última atualização:** 16/10/2026 · **todas as telas do plano v2 (mais 06b, 14b e 14c) desenhadas e implementadas**; PWA publicado.
+> **Última atualização:** 16/10/2026 · telas do plano v2 (mais 06b, 14b, 14c e 05b) desenhadas e implementadas; PWA publicado; **Supabase fase A (contas reais) pronto no código**, falta criar o projeto (ver `docs/supabase.md`).
 
 ---
 
@@ -40,6 +40,7 @@ Seções na página **Prototype** do Figma, cada uma com linha Light e Dark (fra
 | 3 | Entrar com e-mail | `03 · Entrar com e-mail` (47:132) | ✅ | ✅ `src/app/(auth)/entrar.tsx` |
 | 4 | Criar conta | `04 · Criar conta` (55:296) | ✅ | ✅ `src/app/(auth)/criar-conta.tsx` |
 | 5 | Esqueci a senha | `05 · Esqueci a senha` (63:531) | ✅ | ✅ `src/app/(auth)/esqueci-a-senha.tsx` |
+| 5b | Nova senha (link do e-mail) | `05b · Nova senha` (144:3042) | ✅ | ✅ `src/app/(auth)/nova-senha.tsx` |
 | 6 | Início (vazio) | `06 · Início` (66:641) | ✅ | ✅ `src/app/(app)/inicio.tsx` |
 | 7 | Nova compra (folha) | `07 · Nova compra` (75:680) | ✅ | ✅ `src/components/compra/nova-compra-sheet.tsx` |
 | 8 | Compra: lista vazia | `08 · Compra` (82:876) | ✅ | ✅ `src/app/(app)/compra.tsx` |
@@ -117,12 +118,14 @@ src/components/auth/   AuthLayout, AuthHeader, TextLink
 src/components/compra/ folhas Nova compra, Adicionar item, Colocar no carrinho, Concluir compra
 src/components/perfil/ Grupo (título + cartão de linhas)
 src/components/splash/ animação da Splash
-src/lib/               auth (simulado), store (salvo no aparelho), money, validation, notice, pwa,
+src/lib/               auth (Supabase ou simulado), supabase, profile, store (salvo no aparelho), money,
+                       validation, notice, pwa,
                        session (sair → Boas-vindas), photo-draft (foto à espera do recorte)
 src/theme/onda/        tokens gerados + fontes + useOnda()
 design/tokens/         export das variáveis do Figma (onda.figma.json)
 scripts/build-tokens.mjs  gera src/theme/onda/tokens.ts (npm run tokens)
 scripts/build-pwa.mjs     gera dist/sw.js depois do export web (npm run build:web)
+supabase/migrations/   SQL do banco (perfis, fotos, excluir conta)
 public/                manifesto, ícones do PWA e _headers da Cloudflare (copiados para dist/)
 src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 ```
@@ -139,10 +142,11 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 - **Ajustar foto:** arrastar e pinçar com Gesture Handler + Reanimated; funciona com toque (testado com toque simulado no Chromium). Com mouse no computador o arrastar não ativa — não é o uso alvo.
 - **Web:** campos usam `noWebFocusOutline` e `flexBasis: 0` (senão o navegador desenha contorno amarelo e estica o input). Animações dentro de `Modal` com o `Animated` do React Native (o Reanimated não anima entrada dentro de Modal na web).
 
-### 5.3 Simulações (até existir backend)
+### 5.3 Contas e dados
 
-- **Contas:** `src/lib/auth.ts` só imita a rede. Qualquer e-mail entra; **e-mails com "erro" simulam falha** (ex.: `erro@rancho.app`). No login, o nome vem do e-mail (dylan@… → Dylan).
-- **Dados:** `src/lib/store.ts` guarda usuário e compra **no aparelho** (AsyncStorage; na web, `localStorage`), chave `rancho/estado/v1`. Guarda também e-mail, foto (data URI JPEG 512 px) e aparência. Quem já entrou abre direto no Início. Sair limpa a conta e a compra (a aparência fica); excluir apaga tudo. Sem sincronização.
+- **Contas (Supabase, fase A):** `src/lib/auth.ts` usa o Supabase quando há `EXPO_PUBLIC_SUPABASE_URL` e `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` no build (cliente em `src/lib/supabase.ts`; perfil e foto em `src/lib/profile.ts`; banco em `supabase/migrations/`). Passo a passo em [`docs/supabase.md`](docs/supabase.md). **Sem as chaves, cai no modo simulado:** qualquer e-mail entra; e-mails com "erro" simulam falha (ex.: `erro@rancho.app`).
+- **Teste sem o Supabase real:** build com URL falsa + respostas simuladas no Playwright (o ambiente da nuvem bloqueia `*.supabase.co`). `npm run build:web` limpa o cache do bundler (`--clear`) para não levar chaves de um build anterior.
+- **Dados:** `src/lib/store.ts` guarda usuário e compra **no aparelho** (AsyncStorage; na web, `localStorage`), chave `rancho/estado/v1`. Guarda também e-mail, foto (data URI JPEG 512 px) e aparência. Quem já entrou abre direto no Início. Sair limpa a conta mas mantém a compra e a aparência (a compra só existe no aparelho até a fase B); excluir apaga tudo. Nome e foto alterados sem internet ficam em `pendingProfile` e sobem depois.
 
 ## 6. Decisões (registro)
 
@@ -160,6 +164,7 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 | 14/10 | Orçamento obrigatório ao criar compra; saldo é o número em destaque no resumo. |
 | 14/10 | Usar o **laranja (`bg/accent`) em partes dos componentes** para o app não ficar todo verde (ex.: barra de progresso, stepper, subtotal). Cuidado para não confundir com o âmbar de alerta na tela 12. |
 | 14/10 | Uso pessoal sem lojas: **web app instalável (PWA)** no iPhone. Login com Apple fica indisponível nessa fase. |
+| 16/10 | **Supabase em duas fases:** A = contas reais (login, cadastro sem confirmação de e-mail, nova senha por link, perfil com nome e foto, excluir conta); B = dados da compra, depois dos esboços da V2. Google fica para depois. |
 | 16/10 | Tela extra **14c · Aparência** (pedido do designer): Automático (padrão, segue o aparelho), Claro ou Escuro; vale na hora e fica salvo no aparelho. No código, `useOnda()` passa a respeitar a preferência antes do `useColorScheme()`. |
 | 16/10 | Tela extra **14b · Foto de perfil** (pedido do designer): foto escolhida pelo seletor do sistema, recorte em círculo, remover volta à inicial. Fica só no aparelho até existir serviço de contas. |
 | 16/10 | **Concluir compra = resumo e recomeça**: mostra gasto final e o que ficou de fora; ao confirmar, a compra é apagada e o Início volta ao vazio. Sem histórico no MVP. Tela 13 deixa de ser opcional. |
@@ -190,9 +195,10 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 
 ## 9. Próximos passos
 
-1. **Testar no iPhone (PWA)** o fluxo completo: compra, carrinho, alertas, concluir, perfil, foto (arrastar/pinçar) e aparência.
-2. Lacunas ainda sem desenho: **estado vazio das abas** (hoje texto provisório), editar nome/orçamento da compra, textos de Termos e Privacidade.
-3. Ícone do app no Figma (PWA e nativo ainda provisórios).
-4. Depois: Supabase (contas reais + sincronização); login com Google.
+1. **Criar o projeto no Supabase e ligar as chaves na Cloudflare** (passo a passo em `docs/supabase.md`); depois testar contas no iPhone.
+2. **V2:** o designer compartilha os esboços de ideação → planejamento num documento didático para aprovação → Figma → código (mesmo processo). A fase B do Supabase (compra na nuvem) nasce desse plano.
+3. Lacunas ainda sem desenho: **estado vazio das abas** (hoje texto provisório), editar nome/orçamento da compra, textos de Termos e Privacidade.
+4. Ícone do app no Figma (PWA e nativo ainda provisórios).
+5. Depois: login com Google.
 3. **PWA:** publicado. Falta testar no iPhone (instalar, abrir offline) e desenhar o **ícone do app** no Figma (hoje provisório).
 4. Depois: Supabase (contas reais + sincronização), telas 13–16.
