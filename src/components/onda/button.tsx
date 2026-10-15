@@ -10,18 +10,44 @@ type ButtonProps = {
   disabled?: boolean;
   /** Mostra o spinner e bloqueia o toque (ex.: enquanto envia). */
   loading?: boolean;
+  /** primary = verde com borda 3D; ghost = só texto (ação secundária); danger = contorno vermelho (ação destrutiva). */
+  variant?: 'primary' | 'ghost' | 'danger';
 };
 
 const HEIGHT = 60;
 const EDGE = space.xs;
 
 /**
- * Button · Variant=Primary do Onda. Face verde de 52 sobre uma borda 3D de 8 px
+ * Button do Onda. Primary: face verde de 52 sobre uma borda 3D de 8 px
  * (bg/brand-pressed); pressionado, a face afunda 8 px. Desativado fica plano.
+ * Ghost e Danger têm 52 de altura e escurecem ao pressionar.
  */
-export function Button({ label, onPress, disabled = false, loading = false }: ButtonProps) {
+export function Button({ label, onPress, disabled = false, loading = false, variant = 'primary' }: ButtonProps) {
   const { color } = useOnda();
   const inactive = disabled || loading;
+
+  if (variant !== 'primary') {
+    const danger = variant === 'danger';
+    return (
+      <Pressable
+        onPress={onPress}
+        disabled={inactive}
+        accessibilityRole="button"
+        accessibilityLabel={label}
+        accessibilityState={{ disabled, busy: loading }}
+        style={({ pressed }) => [
+          styles.root,
+          styles.flat,
+          danger && { borderWidth: 2, borderColor: color.border.danger },
+          { opacity: disabled ? 0.4 : pressed ? 0.7 : 1 },
+        ]}>
+        {loading && <Spinner color={danger ? color.text.danger : color.text.brand} />}
+        <Text style={[text.label.large, { color: danger ? color.text.danger : color.text.brand }]} numberOfLines={1}>
+          {label}
+        </Text>
+      </Pressable>
+    );
+  }
 
   return (
     <Pressable
@@ -68,6 +94,15 @@ const styles = StyleSheet.create({
   edge: {
     height: HEIGHT,
     borderRadius: radius.md,
+  },
+  flat: {
+    height: HEIGHT - EDGE,
+    borderRadius: radius.md,
+    paddingHorizontal: space.xl,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: space.xs,
   },
   face: {
     height: HEIGHT - EDGE,

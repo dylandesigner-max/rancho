@@ -11,3 +11,17 @@ export function registerServiceWorker(): void {
   // Pede ao navegador para não apagar os dados guardados quando faltar espaço.
   navigator.storage?.persist?.().catch(() => {});
 }
+
+/**
+ * Cor da barra do navegador/PWA e fundo da página. O HTML gerado traz uma cor por
+ * modo do aparelho (media query); com Aparência fixa em Claro ou Escuro, a cor
+ * passa a ser a do app, sem media query.
+ */
+export function applyThemeColor(color: string): void {
+  if (typeof document === 'undefined') return;
+  document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+    meta.setAttribute('content', color);
+    meta.removeAttribute('media');
+  });
+  document.body.style.backgroundColor = color;
+}

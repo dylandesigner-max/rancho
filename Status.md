@@ -2,7 +2,7 @@
 
 > **Leia este arquivo no início de toda sessão e atualize no fim.** Ele é a memória do projeto: o que existe no Figma e no código, o que foi decidido e o que vem a seguir. Assim uma sessão nova (local ou na nuvem) continua de onde a anterior parou sem refazer descobertas.
 >
-> **Última atualização:** 16/10/2026 · telas 1 a 9 implementadas; PWA publicado; **todas as telas do plano v2 desenhadas no Figma** (06b e 10 a 16 aguardando revisão).
+> **Última atualização:** 16/10/2026 · **todas as telas do plano v2 (mais 06b, 14b e 14c) desenhadas e implementadas**; PWA publicado.
 
 ---
 
@@ -44,16 +44,16 @@ Seções na página **Prototype** do Figma, cada uma com linha Light e Dark (fra
 | 7 | Nova compra (folha) | `07 · Nova compra` (75:680) | ✅ | ✅ `src/components/compra/nova-compra-sheet.tsx` |
 | 8 | Compra: lista vazia | `08 · Compra` (82:876) | ✅ | ✅ `src/app/(app)/compra.tsx` |
 | 9 | Adicionar item (folha) | `09 · Adicionar item` (93:888) | ✅ | ✅ `src/components/compra/adicionar-item-sheet.tsx` |
-| 10 | Compra em andamento | `10 · Compra em andamento` (116:1239) | 🟡 aguardando revisão | ⚠️ lista provisória no código |
-| 11 | Colocar no carrinho (folha) | `11 · Colocar no carrinho` (121:1540) | 🟡 aguardando revisão | — |
-| 12 | Alertas de orçamento | `12 · Alertas de orçamento` (125:2096) | 🟡 aguardando revisão | — |
-| 13 | Concluir compra (folha; deixou de ser opcional) | `13 · Concluir compra` (129:2614) | 🟡 aguardando revisão | — |
-| 14 | Meu perfil | `14 · Meu perfil` (132:2754) | 🟡 aguardando revisão | — (avatar mostra "Em breve") |
-| 14b | Foto de perfil (escolher, trocar, remover, ajustar) | `14b · Foto de perfil` (137:2892) | 🟡 aguardando revisão | — |
-| 14c | Aparência (Automático, Claro, Escuro) | `14c · Aparência` (140:3098) | 🟡 aguardando revisão | — (hoje o app só segue o sistema) |
-| 15 | Editar perfil | `15 · Editar perfil` (132:2900) | 🟡 aguardando revisão | — |
-| 16 | Excluir conta | `16 · Excluir conta` (132:3060) | 🟡 aguardando revisão | — |
-| 06b | Início com compra em andamento | `06b · Início com compra em andamento` (128:2530) | 🟡 aguardando revisão | ⚠️ texto provisório no código |
+| 10 | Compra em andamento | `10 · Compra em andamento` (116:1239) | ✅ | ✅ `src/app/(app)/compra.tsx` (⚠️ estado vazio das abas provisório) |
+| 11 | Colocar no carrinho (folha) | `11 · Colocar no carrinho` (121:1540) | ✅ | ✅ `src/components/compra/colocar-no-carrinho-sheet.tsx` |
+| 12 | Alertas de orçamento | `12 · Alertas de orçamento` (125:2096) | ✅ | ✅ `BudgetSummary` + prévia da folha 11 |
+| 13 | Concluir compra (folha; deixou de ser opcional) | `13 · Concluir compra` (129:2614) | ✅ | ✅ `src/components/compra/concluir-compra-sheet.tsx` |
+| 14 | Meu perfil | `14 · Meu perfil` (132:2754) | ✅ | ✅ `src/app/(app)/perfil.tsx` (⚠️ Termos/Privacidade mostram "Em breve") |
+| 14b | Foto de perfil (escolher, trocar, remover, ajustar) | `14b · Foto de perfil` (137:2892) | ✅ | ✅ `foto-de-perfil.tsx` + `ajustar-foto.tsx` |
+| 14c | Aparência (Automático, Claro, Escuro) | `14c · Aparência` (140:3098) | ✅ | ✅ `src/app/(app)/aparencia.tsx` |
+| 15 | Editar perfil | `15 · Editar perfil` (132:2900) | ✅ | ✅ `src/app/(app)/editar-perfil.tsx` |
+| 16 | Excluir conta | `16 · Excluir conta` (132:3060) | ✅ | ✅ `src/app/(app)/excluir-conta.tsx` |
+| 06b | Início com compra em andamento | `06b · Início com compra em andamento` (128:2530) | ✅ | ✅ `src/app/(app)/inicio.tsx` |
 
 **Lacunas conhecidas (não estão no plano v2, a desenhar):**
 - ~~Início com compra em andamento~~ → desenhado como 06b (16/10).
@@ -110,12 +110,15 @@ Amostra visual: página **Design System** → frame **"Onda · Foundations"** (2
 
 ```
 src/app/(auth)/        telas 2–5 (index = Boas-vindas)
-src/app/(app)/         inicio.tsx (tela 6), compra.tsx (tela 8)
+src/app/(app)/         inicio (6/06b), compra (8/10), perfil (14), foto-de-perfil e ajustar-foto (14b),
+                       aparencia (14c), editar-perfil (15), excluir-conta (16)
 src/components/onda/   componentes do design system
 src/components/auth/   AuthLayout, AuthHeader, TextLink
-src/components/compra/ folhas Nova compra e Adicionar item
+src/components/compra/ folhas Nova compra, Adicionar item, Colocar no carrinho, Concluir compra
+src/components/perfil/ Grupo (título + cartão de linhas)
 src/components/splash/ animação da Splash
-src/lib/               auth (simulado), store (salvo no aparelho), money, validation, notice, pwa
+src/lib/               auth (simulado), store (salvo no aparelho), money, validation, notice, pwa,
+                       session (sair → Boas-vindas), photo-draft (foto à espera do recorte)
 src/theme/onda/        tokens gerados + fontes + useOnda()
 design/tokens/         export das variáveis do Figma (onda.figma.json)
 scripts/build-tokens.mjs  gera src/theme/onda/tokens.ts (npm run tokens)
@@ -132,12 +135,14 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 - **Sincronizar tokens:** reexportar as variáveis do Figma para `design/tokens/onda.figma.json` e rodar `npm run tokens`.
 - **Nada de dados pessoais em parâmetros de rota** (na web viram URL).
 - **Trechos sem design** ficam marcados com `// PROVISÓRIO`.
+- **Aparência:** `useOnda()` usa a preferência salva (Automático/Claro/Escuro) antes do modo do aparelho; a barra de status e a cor do PWA acompanham (`applyThemeColor`).
+- **Ajustar foto:** arrastar e pinçar com Gesture Handler + Reanimated; funciona com toque (testado com toque simulado no Chromium). Com mouse no computador o arrastar não ativa — não é o uso alvo.
 - **Web:** campos usam `noWebFocusOutline` e `flexBasis: 0` (senão o navegador desenha contorno amarelo e estica o input). Animações dentro de `Modal` com o `Animated` do React Native (o Reanimated não anima entrada dentro de Modal na web).
 
 ### 5.3 Simulações (até existir backend)
 
 - **Contas:** `src/lib/auth.ts` só imita a rede. Qualquer e-mail entra; **e-mails com "erro" simulam falha** (ex.: `erro@rancho.app`). No login, o nome vem do e-mail (dylan@… → Dylan).
-- **Dados:** `src/lib/store.ts` guarda usuário e compra **no aparelho** (AsyncStorage; na web, `localStorage`), chave `rancho/estado/v1`. Quem já entrou abre direto no Início. Ainda não há sair da conta nem sincronização.
+- **Dados:** `src/lib/store.ts` guarda usuário e compra **no aparelho** (AsyncStorage; na web, `localStorage`), chave `rancho/estado/v1`. Guarda também e-mail, foto (data URI JPEG 512 px) e aparência. Quem já entrou abre direto no Início. Sair limpa a conta e a compra (a aparência fica); excluir apaga tudo. Sem sincronização.
 
 ## 6. Decisões (registro)
 
@@ -185,8 +190,9 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 
 ## 9. Próximos passos
 
-1. **Revisar no Figma as telas 06b, 10 a 16, 14b e 14c** (desenhadas em 16/10). Ajustes do designer entram direto no Figma; ao sincronizar, ler os valores reais.
-2. Implementar no código, na ordem do fluxo: 10 + 11 (componentes Tabs, ItemRow, Button Ghost) → 12 (BudgetSummary com alertas) → 06b + 13 → 14, 14b, 14c, 15 e 16 (ListItem, RadioItem, Button Danger, Avatar com foto).
-3. Lacunas ainda sem desenho: estado vazio das abas, editar nome/orçamento da compra.
+1. **Testar no iPhone (PWA)** o fluxo completo: compra, carrinho, alertas, concluir, perfil, foto (arrastar/pinçar) e aparência.
+2. Lacunas ainda sem desenho: **estado vazio das abas** (hoje texto provisório), editar nome/orçamento da compra, textos de Termos e Privacidade.
+3. Ícone do app no Figma (PWA e nativo ainda provisórios).
+4. Depois: Supabase (contas reais + sincronização); login com Google.
 3. **PWA:** publicado. Falta testar no iPhone (instalar, abrir offline) e desenhar o **ícone do app** no Figma (hoje provisório).
 4. Depois: Supabase (contas reais + sincronização), telas 13–16.

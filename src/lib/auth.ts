@@ -21,14 +21,14 @@ export type SignUpResult = { ok: true } | { ok: false; reason: 'email-in-use' };
 export async function signIn(email: string, _password: string): Promise<SignInResult> {
   await wait(1200);
   if (simulatesError(email)) return { ok: false, reason: 'invalid-credentials' };
-  actions.setUserName(nameFromEmail(email));
+  actions.signIn(nameFromEmail(email), email.trim());
   return { ok: true };
 }
 
 export async function signUp(name: string, email: string, _password: string): Promise<SignUpResult> {
   await wait(1200);
   if (simulatesError(email)) return { ok: false, reason: 'email-in-use' };
-  actions.setUserName(name);
+  actions.signIn(name, email.trim());
   return { ok: true };
 }
 
