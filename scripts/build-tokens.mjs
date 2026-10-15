@@ -84,6 +84,8 @@ const light = colorFor('Light');
 const out = `// Gerado por scripts/build-tokens.mjs a partir de design/tokens/onda.figma.json.
 // Não edite à mão: altere no Figma, reexporte e rode \`npm run tokens\`.
 
+import type { TextStyle } from 'react-native';
+
 export const primitives = ${lit(primitives)} as const;
 
 export type ColorTokens = ${typeOf(light)};
@@ -97,7 +99,8 @@ export const space = ${lit(single(Spacing, 'space/'))} as const;
 
 export const radius = ${lit(single(Radius, 'radius/'))} as const;
 
-export const text = ${lit(text)} as const;
+// \`satisfies\` (e não \`as const\`): o React Native não aceita fontVariant somente-leitura.
+export const text = ${lit(text)} satisfies Record<string, TextStyle | Record<string, TextStyle>>;
 `;
 
 writeFileSync(resolve(root, 'src/theme/onda/tokens.ts'), out);

@@ -176,6 +176,12 @@
       },
       "green/300-a40": {
         "Value": "#8EE20F66"
+      },
+      "neutral/950-a50": {
+        "Value": "#170C0980"
+      },
+      "neutral/950-a70": {
+        "Value": "#170C09B2"
       }
     },
     "Color": {
@@ -505,6 +511,22 @@
         },
         "Dark": {
           "alias": "red/400"
+        }
+      },
+      "bg/overlay": {
+        "Light": {
+          "alias": "neutral/950-a50"
+        },
+        "Dark": {
+          "alias": "neutral/950-a70"
+        }
+      },
+      "icon/accent": {
+        "Light": {
+          "alias": "orange/700"
+        },
+        "Dark": {
+          "alias": "orange/400"
         }
       }
     },

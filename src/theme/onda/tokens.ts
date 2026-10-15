@@ -1,6 +1,8 @@
 // Gerado por scripts/build-tokens.mjs a partir de design/tokens/onda.figma.json.
 // Não edite à mão: altere no Figma, reexporte e rode `npm run tokens`.
 
+import type { TextStyle } from 'react-native';
+
 export const primitives = {
   "green": {
     "50": "#F0FBE8",
@@ -41,7 +43,9 @@ export const primitives = {
     "700": "#6E5C54",
     "800": "#473632",
     "900": "#2E201D",
-    "950": "#170C09"
+    "950": "#170C09",
+    "950A50": "#170C0980",
+    "950A70": "#170C09B2"
   },
   "amber": {
     "50": "#FEF5EB",
@@ -92,6 +96,7 @@ export type ColorTokens = {
     "warningSubtle": string;
     "danger": string;
     "dangerSubtle": string;
+    "overlay": string;
   };
   "text": {
     "primary": string;
@@ -115,6 +120,7 @@ export type ColorTokens = {
     "brand": string;
     "onBrand": string;
     "danger": string;
+    "accent": string;
   };
   "border": {
     "default": string;
@@ -144,7 +150,8 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
       "warning": "#FBAC16",
       "warningSubtle": "#FDECD5",
       "danger": "#D22539",
-      "dangerSubtle": "#FDF5F4"
+      "dangerSubtle": "#FDF5F4",
+      "overlay": "#170C0980"
     },
     "text": {
       "primary": "#170C09",
@@ -167,7 +174,8 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
       "secondary": "#6E5C54",
       "brand": "#2D7227",
       "onBrand": "#072019",
-      "danger": "#AF1D2E"
+      "danger": "#AF1D2E",
+      "accent": "#A63403"
     },
     "border": {
       "default": "#E8DDC9",
@@ -195,7 +203,8 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
       "warning": "#FBAC16",
       "warningSubtle": "#432B02",
       "danger": "#D22539",
-      "dangerSubtle": "#380408"
+      "dangerSubtle": "#380408",
+      "overlay": "#170C09B2"
     },
     "text": {
       "primary": "#FAF5E3",
@@ -218,7 +227,8 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
       "secondary": "#BDAE9F",
       "brand": "#8EE20F",
       "onBrand": "#072019",
-      "danger": "#ED9693"
+      "danger": "#ED9693",
+      "accent": "#FA916A"
     },
     "border": {
       "default": "#473632",
@@ -256,6 +266,7 @@ export const radius = {
   "full": 9999
 } as const;
 
+// `satisfies` (e não `as const`): o React Native não aceita fontVariant somente-leitura.
 export const text = {
   "display": {
     "large": {
@@ -351,4 +362,4 @@ export const text = {
       ]
     }
   }
-} as const;
+} satisfies Record<string, TextStyle | Record<string, TextStyle>>;
