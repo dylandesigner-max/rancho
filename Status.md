@@ -50,6 +50,7 @@ Seções na página **Prototype** do Figma, cada uma com linha Light e Dark (fra
 | 13 | Concluir compra (folha; deixou de ser opcional) | `13 · Concluir compra` (129:2614) | 🟡 aguardando revisão | — |
 | 14 | Meu perfil | `14 · Meu perfil` (132:2754) | 🟡 aguardando revisão | — (avatar mostra "Em breve") |
 | 14b | Foto de perfil (escolher, trocar, remover, ajustar) | `14b · Foto de perfil` (137:2892) | 🟡 aguardando revisão | — |
+| 14c | Aparência (Automático, Claro, Escuro) | `14c · Aparência` (140:3098) | 🟡 aguardando revisão | — (hoje o app só segue o sistema) |
 | 15 | Editar perfil | `15 · Editar perfil` (132:2900) | 🟡 aguardando revisão | — |
 | 16 | Excluir conta | `16 · Excluir conta` (132:3060) | 🟡 aguardando revisão | — |
 | 06b | Início com compra em andamento | `06b · Início com compra em andamento` (128:2530) | 🟡 aguardando revisão | ⚠️ texto provisório no código |
@@ -96,6 +97,7 @@ Amostra visual: página **Design System** → frame **"Onda · Foundations"** (2
 | BudgetSummary (Normal, Warning, Over) | 82:64 | Saldo em destaque (Amount/Large), barra, gasto/orçamento. Warning (≥ 80%): fundo `bg/warning-subtle`, barra `bg/warning`, aviso. Over: fundo `bg/danger-subtle`, "Acima do orçamento" + excedente em `text/danger`. Propriedade de texto Alerta. |
 | QuantityStepper | 91:27 | − e + em `icon/accent` sobre `bg/accent-subtle`; mínimo 1. |
 | Button · Danger | 130:53 | Contorno `border/danger`, texto `text/danger`, altura 52; ação destrutiva principal (excluir conta). |
+| RadioItem (Selected true/false) | 139:50 | Opção de escolha única: rótulo, descrição opcional, rádio à direita (anel `border/brand` + ponto `bg/brand`). |
 | ListItem (Default, Danger) | 130:52 | Linha de menu (mín. 52): rótulo, valor opcional, chevron opcional; agrupada em cartão `bg/surface`. |
 | Button · Ghost | 120:29 | Só texto `text/brand`, altura 52; ação secundária (ex.: "Devolver para pendentes"). |
 | Tab (Active, Inactive) | 115:30 | Aba com contador; ativa em `bg/surface` com contador `text/accent` sobre `bg/accent-subtle`. |
@@ -153,6 +155,7 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 | 14/10 | Orçamento obrigatório ao criar compra; saldo é o número em destaque no resumo. |
 | 14/10 | Usar o **laranja (`bg/accent`) em partes dos componentes** para o app não ficar todo verde (ex.: barra de progresso, stepper, subtotal). Cuidado para não confundir com o âmbar de alerta na tela 12. |
 | 14/10 | Uso pessoal sem lojas: **web app instalável (PWA)** no iPhone. Login com Apple fica indisponível nessa fase. |
+| 16/10 | Tela extra **14c · Aparência** (pedido do designer): Automático (padrão, segue o aparelho), Claro ou Escuro; vale na hora e fica salvo no aparelho. No código, `useOnda()` passa a respeitar a preferência antes do `useColorScheme()`. |
 | 16/10 | Tela extra **14b · Foto de perfil** (pedido do designer): foto escolhida pelo seletor do sistema, recorte em círculo, remover volta à inicial. Fica só no aparelho até existir serviço de contas. |
 | 16/10 | **Concluir compra = resumo e recomeça**: mostra gasto final e o que ficou de fora; ao confirmar, a compra é apagada e o Início volta ao vazio. Sem histórico no MVP. Tela 13 deixa de ser opcional. |
 | 16/10 | Uma compra por vez no MVP: com compra aberta, o Início mostra a 06b ("Continuar" / "Concluir"). |
@@ -182,8 +185,8 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 
 ## 9. Próximos passos
 
-1. **Revisar no Figma as telas 06b, 10 a 16 e 14b** (desenhadas em 16/10). Ajustes do designer entram direto no Figma; ao sincronizar, ler os valores reais.
-2. Implementar no código, na ordem do fluxo: 10 + 11 (componentes Tabs, ItemRow, Button Ghost) → 12 (BudgetSummary com alertas) → 06b + 13 → 14, 14b, 15 e 16 (ListItem, Button Danger, Avatar com foto).
+1. **Revisar no Figma as telas 06b, 10 a 16, 14b e 14c** (desenhadas em 16/10). Ajustes do designer entram direto no Figma; ao sincronizar, ler os valores reais.
+2. Implementar no código, na ordem do fluxo: 10 + 11 (componentes Tabs, ItemRow, Button Ghost) → 12 (BudgetSummary com alertas) → 06b + 13 → 14, 14b, 14c, 15 e 16 (ListItem, RadioItem, Button Danger, Avatar com foto).
 3. Lacunas ainda sem desenho: estado vazio das abas, editar nome/orçamento da compra.
 3. **PWA:** publicado. Falta testar no iPhone (instalar, abrir offline) e desenhar o **ícone do app** no Figma (hoje provisório).
 4. Depois: Supabase (contas reais + sincronização), telas 13–16.
