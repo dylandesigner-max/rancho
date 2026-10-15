@@ -5,9 +5,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { UpdateBanner } from '@/components/onda';
 import { AnimatedSplash } from '@/components/splash/animated-splash';
 import { initAuth } from '@/lib/auth';
-import { applyThemeColor, registerServiceWorker } from '@/lib/pwa';
+import { applyThemeColor, applyUpdate, registerServiceWorker, useUpdateReady } from '@/lib/pwa';
 import { hydrateStore, useStoreHydrated } from '@/lib/store';
 import { useOnda, useOndaFonts } from '@/theme/onda';
 
@@ -19,6 +20,8 @@ export default function RootLayout() {
   const hydrated = useStoreHydrated();
   const [authReady, setAuthReady] = useState(false);
   const [splashDone, setSplashDone] = useState(false);
+  const updateReady = useUpdateReady();
+  const [updateDismissed, setUpdateDismissed] = useState(false);
   const ready = (fontsLoaded || !!fontError) && hydrated && authReady;
   const finishSplash = useCallback(() => setSplashDone(true), []);
 
@@ -56,6 +59,9 @@ export default function RootLayout() {
           contentStyle: { backgroundColor: color.bg.canvas },
         }}
       />
+      {updateReady && !updateDismissed && splashDone ? (
+        <UpdateBanner onUpdate={applyUpdate} onDismiss={() => setUpdateDismissed(true)} />
+      ) : null}
       {!splashDone && <AnimatedSplash onFinish={finishSplash} />}
     </GestureHandlerRootView>
   );

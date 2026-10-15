@@ -20,3 +20,4 @@ export { Tab } from './tab';
 export { Tabs } from './tabs';
 export { TextField } from './text-field';
 export { TopBar } from './top-bar';
+export { UpdateBanner } from './update-banner';

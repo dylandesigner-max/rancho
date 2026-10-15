@@ -1,5 +1,12 @@
-/** No celular (app nativo) não há service worker: nada a fazer. Ver `pwa.web.ts`. */
+// No app nativo não há service worker nem barra do navegador. Ver `pwa.web.ts`.
+
 export function registerServiceWorker(): void {}
 
-/** No app nativo a barra de status é a do StatusBar; nada a fazer. Ver `pwa.web.ts`. */
+/** Atualizações do app nativo vêm pela loja ou pelo EAS Update, não por este aviso. */
+export function useUpdateReady(): boolean {
+  return false;
+}
+
+export function applyUpdate(): void {}
+
 export function applyThemeColor(_color: string): void {}

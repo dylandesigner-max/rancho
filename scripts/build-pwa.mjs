@@ -52,9 +52,15 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(CACHE)
-      .then((cache) => cache.addAll(PRECACHE.map((url) => new Request(url, { cache: 'reload' }))))
-      .then(() => self.skipWaiting()),
+      .then((cache) => cache.addAll(PRECACHE.map((url) => new Request(url, { cache: 'reload' })))),
   );
+});
+
+// A versão nova espera: o app mostra o aviso "Nova versão pronta" e, ao tocar em
+// "Atualizar", pede para ela assumir (src/lib/pwa.web.ts). Na primeira instalação
+// não há versão antiga, então ela já assume sozinha.
+self.addEventListener('message', (event) => {
+  if (event.data === 'SKIP_WAITING') self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {

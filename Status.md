@@ -41,6 +41,7 @@ Seções na página **Prototype** do Figma, cada uma com linha Light e Dark (fra
 | 4 | Criar conta | `04 · Criar conta` (55:296) | ✅ | ✅ `src/app/(auth)/criar-conta.tsx` |
 | 5 | Esqueci a senha | `05 · Esqueci a senha` (63:531) | ✅ | ✅ `src/app/(auth)/esqueci-a-senha.tsx` |
 | 5b | Nova senha (link do e-mail) | `05b · Nova senha` (144:3042) | ✅ | ✅ `src/app/(auth)/nova-senha.tsx` |
+| — | PWA · Aviso de atualização | `PWA · Aviso de atualização` (147:3118) | ✅ | ✅ `UpdateBanner` + `src/lib/pwa.web.ts` |
 | 6 | Início (vazio) | `06 · Início` (66:641) | ✅ | ✅ `src/app/(app)/inicio.tsx` |
 | 7 | Nova compra (folha) | `07 · Nova compra` (75:680) | ✅ | ✅ `src/components/compra/nova-compra-sheet.tsx` |
 | 8 | Compra: lista vazia | `08 · Compra` (82:876) | ✅ | ✅ `src/app/(app)/compra.tsx` |
@@ -85,7 +86,7 @@ Amostra visual: página **Design System** → frame **"Onda · Foundations"** (2
 | Logo (Full, Mark) | 30:32 | Vetores do Branding; cores = `bg/brand`, `bg/canvas`, `text/primary`. |
 | Button (Primary: Default, Pressed, Disabled, Loading) | 35:11 | Altura 60, face 52 + borda 3D de 8 px (`bg/brand-pressed`). Pressionado afunda 8. |
 | SocialButton (Apple, Google) | 35:23 | Textos oficiais pt-BR. Apple só no iOS; no app final usar botão nativo. |
-| Ícones (Lucide, 24, traço 2) | vários | arrow-left, eye, eye-off, circle-alert, loader-circle, check, mail-check, shopping-basket, clipboard-list, x, minus, plus, chevron-right, camera. No código: import por arquivo (`lucide-react-native/icons/<nome>`). |
+| Ícones (Lucide, 24, traço 2) | vários | arrow-left, eye, eye-off, circle-alert, loader-circle, check, mail-check, shopping-basket, clipboard-list, x, minus, plus, chevron-right, camera, refresh-cw. No código: import por arquivo (`lucide-react-native/icons/<nome>`). |
 | IconButton | 46:25 | Área de toque 44. |
 | TextField (Default, Focus, Filled, Error) | 46:69 | Campo 52, borda 1 (2 em foco/erro). |
 | Checkbox (false, true) | 54:16 | Linha inteira tocável. |
@@ -99,6 +100,7 @@ Amostra visual: página **Design System** → frame **"Onda · Foundations"** (2
 | QuantityStepper | 91:27 | − e + em `icon/accent` sobre `bg/accent-subtle`; mínimo 1. |
 | Button · Danger | 130:53 | Contorno `border/danger`, texto `text/danger`, altura 52; ação destrutiva principal (excluir conta). |
 | RadioItem (Selected true/false) | 139:50 | Opção de escolha única: rótulo, descrição opcional, rádio à direita (anel `border/brand` + ponto `bg/brand`). |
+| UpdateBanner | 146:47 | Aviso fixo no rodapé do PWA ("Nova versão pronta · Atualizar", X para esconder). Fundo `bg/inverse`, ação em pílula `bg/brand`. |
 | ListItem (Default, Danger) | 130:52 | Linha de menu (mín. 52): rótulo, valor opcional, chevron opcional; agrupada em cartão `bg/surface`. |
 | Button · Ghost | 120:29 | Só texto `text/brand`, altura 52; ação secundária (ex.: "Devolver para pendentes"). |
 | Tab (Active, Inactive) | 115:30 | Aba com contador; ativa em `bg/surface` com contador `text/accent` sobre `bg/accent-subtle`. |
@@ -164,6 +166,7 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 | 14/10 | Orçamento obrigatório ao criar compra; saldo é o número em destaque no resumo. |
 | 14/10 | Usar o **laranja (`bg/accent`) em partes dos componentes** para o app não ficar todo verde (ex.: barra de progresso, stepper, subtotal). Cuidado para não confundir com o âmbar de alerta na tela 12. |
 | 14/10 | Uso pessoal sem lojas: **web app instalável (PWA)** no iPhone. Login com Apple fica indisponível nessa fase. |
+| 16/10 | **Aviso de atualização do PWA** (pedido do designer): a versão nova espera e o app mostra um aviso fixo no rodapé; "Atualizar" recarrega já na versão nova. Fim de re-adicionar o app à Tela de Início. |
 | 16/10 | **Supabase em duas fases:** A = contas reais (login, cadastro sem confirmação de e-mail, nova senha por link, perfil com nome e foto, excluir conta); B = dados da compra, depois dos esboços da V2. Google fica para depois. |
 | 16/10 | Tela extra **14c · Aparência** (pedido do designer): Automático (padrão, segue o aparelho), Claro ou Escuro; vale na hora e fica salvo no aparelho. No código, `useOnda()` passa a respeitar a preferência antes do `useColorScheme()`. |
 | 16/10 | Tela extra **14b · Foto de perfil** (pedido do designer): foto escolhida pelo seletor do sistema, recorte em círculo, remover volta à inicial. Fica só no aparelho até existir serviço de contas. |
