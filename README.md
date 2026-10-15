@@ -43,11 +43,17 @@ npx expo start
 
 Escaneie o QR code com a câmera (iOS) ou com o Expo Go (Android).
 
+> No Windows, se o PowerShell bloquear o `npx`, use `npx.cmd expo start`.
+
+**Contas ainda são simuladas.** Qualquer e-mail entra; para ver os estados de erro, use um e-mail que contenha "erro" (ex.: `erro@rancho.app`).
+
 ## Estrutura
 
 ```
 src/
-  app/          # telas (cada arquivo é uma rota)
+  app/          # telas (cada arquivo é uma rota): (auth) entrada, (app) o resto
+  components/   # onda/ = componentes do design system; auth/, splash/ = peças das telas
+  lib/          # regras sem interface (validação, serviço de contas simulado)
   theme/onda/   # tokens do design system Onda (gerados a partir do Figma)
 design/tokens/  # export das variáveis do Figma
 scripts/        # gerador de tokens (npm run tokens)

@@ -7,6 +7,15 @@ import { NunitoSans_700Bold } from '@expo-google-fonts/nunito-sans/700Bold';
 import { NunitoSans_800ExtraBold } from '@expo-google-fonts/nunito-sans/800ExtraBold';
 import { useFonts } from 'expo-font';
 
+/** Famílias por peso, para trechos destacados dentro de um texto (ex.: negrito no meio da frase). */
+export const font = {
+  display: 'LilitaOne_400Regular',
+  regular: 'NunitoSans_400Regular',
+  semibold: 'NunitoSans_600SemiBold',
+  bold: 'NunitoSans_700Bold',
+  extrabold: 'NunitoSans_800ExtraBold',
+} as const;
+
 /** Carrega as fontes usadas pelos estilos de texto do Onda. Retorna [carregou, erro]. */
 export function useOndaFonts() {
   return useFonts({

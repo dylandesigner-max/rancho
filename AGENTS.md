@@ -1,5 +1,7 @@
 This is an Expo/React Native mobile application. Prioritize mobile-first patterns, performance, and cross-platform compatibility.
 
+> **Comece por [`Status.md`](Status.md):** estado das telas (Figma e código), componentes do Onda, decisões e próximos passos. Atualize-o ao fim de cada sessão.
+
 ## Expo has changed — do not trust your training data
 
 Expo ships breaking changes every SDK release. APIs you remember are likely renamed, moved, or removed. Before writing any code that touches an Expo, EAS, or React Native API:
@@ -67,3 +69,14 @@ Nunca implemente UI no código antes da tela estar aprovada no Figma. Os tokens 
 - `src/theme/onda/tokens.ts` é gerado. Não edite à mão.
 - Nomes: `bg/brand-pressed` no Figma → `color.bg.brandPressed`; `Amount/Large` → `text.amount.large`.
 - Fontes (Lilita One e Nunito Sans) entram via `@expo-google-fonts`, importadas por peso em `src/theme/onda/fonts.ts`. Novo peso no Figma = adicionar o import lá e o mapeamento em `scripts/build-tokens.mjs`.
+
+### Componentes e telas
+
+- Componentes do Onda em `src/components/onda/`, um arquivo por componente do Figma (mesmo nome). Crie um novo só quando uma tela aprovada pedir.
+- Ícones: Lucide, sempre importados por arquivo (`lucide-react-native/icons/arrow-left`), nunca do pacote inteiro.
+- Telas de entrada em `src/app/(auth)/`; o resto do app vai em `src/app/(app)/`.
+- Contas: `src/lib/auth.ts` é um serviço SIMULADO até escolhermos o real. E-mails que contêm "erro" simulam falha.
+- Estado do app (usuário e compra) em `src/lib/store.ts`, só na memória por enquanto. Dinheiro: use `src/lib/money.ts` (centavos inteiros, `formatBRL`, `digitsToCents`, `subtotal`).
+- Trechos de interface ainda não desenhados ficam marcados com `// PROVISÓRIO` e devem ser trocados quando a tela for aprovada no Figma.
+- Folhas inferiores: use `BottomSheet` do Onda. Animações dentro de `Modal` com o `Animated` do React Native (as de entrada do Reanimated não rodam no Modal na web).
+- Nunca passe dados pessoais (e-mail etc.) por parâmetro de rota: na versão web eles aparecem na URL.
