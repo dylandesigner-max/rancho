@@ -154,6 +154,7 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
   - Copiar uma variante para dentro de um component set **perde as ligações de propriedade**; religar depois.
   - Folhas montadas sobre uma cópia de outra tela precisam de nomes de camada únicos (a cópia já tem "Topo").
   - Retorno do `use_figma` tem limite de ~20 KB (exportar SVGs grandes em partes).
+  - **Contorno externo/interno não sobrevive ao export SVG** (o Figma engorda o desenho e cola formas vizinhas). Ler `fillGeometry` do vetor e desenhar o contorno por baixo com o dobro da espessura, como no `Logo` (corrigido em 16/10: as linhas ao lado do R saíam quebradas).
 
 ## 8. Distribuição (uso pessoal)
 
