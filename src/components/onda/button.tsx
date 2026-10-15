@@ -12,12 +12,12 @@ type ButtonProps = {
   loading?: boolean;
 };
 
-const HEIGHT = 56;
-const EDGE = space['2xs'];
+const HEIGHT = 60;
+const EDGE = space.xs;
 
 /**
- * Button · Variant=Primary do Onda. Face verde sobre uma borda 3D (bg/brand-pressed);
- * pressionado, a face afunda 4 px. Desativado fica plano.
+ * Button · Variant=Primary do Onda. Face verde de 52 sobre uma borda 3D de 8 px
+ * (bg/brand-pressed); pressionado, a face afunda 8 px. Desativado fica plano.
  */
 export function Button({ label, onPress, disabled = false, loading = false }: ButtonProps) {
   const { color } = useOnda();

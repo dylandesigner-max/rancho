@@ -62,7 +62,8 @@ export default function EsqueciASenha() {
             )}
           </>
         }>
-        <View style={[styles.iconCircle, { backgroundColor: color.bg.brandSubtle }]}>
+        <View
+          style={[styles.iconCircle, { backgroundColor: color.bg.brandSubtle, borderColor: color.border.brandSubtle }]}>
           <MailCheck color={color.icon.brand} size={44} />
         </View>
         <View style={styles.message}>
@@ -124,6 +125,7 @@ const styles = StyleSheet.create({
     width: 96,
     height: 96,
     borderRadius: radius.full,
+    borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
