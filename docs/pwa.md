@@ -2,6 +2,8 @@
 
 Sem App Store nem Mac, o Rancho roda no iPhone como **PWA**: um site que se instala na Tela de Início, abre em tela cheia e funciona sem internet no mercado.
 
+**Endereço:** https://rancho.dylan-dsgner.workers.dev
+
 ## O que já está pronto
 
 | Peça | Onde |
