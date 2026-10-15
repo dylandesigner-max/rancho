@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button, TextField, TopBar } from '@/components/onda';
+import { syncProfile } from '@/lib/profile';
 import { actions, useStore } from '@/lib/store';
 import { space, useOnda } from '@/theme/onda';
 
@@ -17,6 +18,7 @@ export default function EditarPerfil() {
 
   const save = () => {
     actions.setUserName(name.trim());
+    syncProfile();
     router.back();
   };
 

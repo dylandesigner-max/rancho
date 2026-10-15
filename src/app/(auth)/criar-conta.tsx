@@ -6,7 +6,7 @@ import { AuthHeader } from '@/components/auth/auth-header';
 import { AuthLayout } from '@/components/auth/auth-layout';
 import { TextLink } from '@/components/auth/text-link';
 import { Button, Checkbox, TextField } from '@/components/onda';
-import { signUp } from '@/lib/auth';
+import { authMessage, signUp } from '@/lib/auth';
 import { showNotice } from '@/lib/notice';
 import { MIN_PASSWORD_LENGTH, isValidEmail } from '@/lib/validation';
 import { font, space, text, useOnda } from '@/theme/onda';
@@ -41,7 +41,7 @@ export default function CriarConta() {
     const result = await signUp(name.trim(), email.trim(), password);
     setLoading(false);
     if (!result.ok) {
-      setEmailError('Este e-mail já tem uma conta. Tente entrar.');
+      setEmailError(authMessage(result.reason));
       return;
     }
     router.replace('/inicio');

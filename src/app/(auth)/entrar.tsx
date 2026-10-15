@@ -6,7 +6,7 @@ import { AuthHeader } from '@/components/auth/auth-header';
 import { AuthLayout } from '@/components/auth/auth-layout';
 import { TextLink } from '@/components/auth/text-link';
 import { Button, TextField } from '@/components/onda';
-import { signIn } from '@/lib/auth';
+import { authMessage, signIn } from '@/lib/auth';
 import { emailDraft } from '@/lib/email-draft';
 import { isValidEmail } from '@/lib/validation';
 import { space } from '@/theme/onda';
@@ -18,13 +18,13 @@ export default function Entrar() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState<string>();
-  const [authError, setAuthError] = useState(false);
+  const [authError, setAuthError] = useState<string>();
 
   const canSubmit = email.trim().length > 0 && password.length > 0;
 
   const clearErrors = () => {
     setEmailError(undefined);
-    setAuthError(false);
+    setAuthError(undefined);
   };
 
   const submit = async () => {
@@ -36,8 +36,8 @@ export default function Entrar() {
     const result = await signIn(email.trim(), password);
     setLoading(false);
     if (!result.ok) {
-      // Mensagem genérica: não revela se o erro foi no e-mail ou na senha.
-      setAuthError(true);
+      // Credenciais: mensagem genérica, não revela se o erro foi no e-mail ou na senha.
+      setAuthError(authMessage(result.reason));
       return;
     }
     router.replace('/inicio');
@@ -66,7 +66,7 @@ export default function Entrar() {
             setEmail(v);
             clearErrors();
           }}
-          error={emailError ?? authError}
+          error={emailError ?? !!authError}
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
@@ -82,7 +82,7 @@ export default function Entrar() {
             setPassword(v);
             clearErrors();
           }}
-          error={authError ? 'E-mail ou senha incorretos. Confira e tente de novo.' : undefined}
+          error={authError}
           password
           autoCapitalize="none"
           autoComplete="current-password"

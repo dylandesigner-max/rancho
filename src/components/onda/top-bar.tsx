@@ -12,14 +12,15 @@ type TopBarProps = {
 };
 
 /** TopBar do Onda: voltar + título opcional (Heading/Medium). Altura 44. */
-export function TopBar({ title, onBack = () => router.back() }: TopBarProps) {
+export function TopBar({ title, onBack }: TopBarProps) {
+  const back = onBack ?? (() => (router.canGoBack() ? router.back() : router.replace('/')));
   const { color } = useOnda();
 
   return (
     <View style={styles.root}>
       <IconButton
         accessibilityLabel="Voltar"
-        onPress={onBack}
+        onPress={back}
         icon={<ArrowLeft color={color.icon.primary} size={24} />}
       />
       {title ? (

@@ -4,9 +4,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Avatar, ListItem, TopBar } from '@/components/onda';
 import { Grupo } from '@/components/perfil/grupo';
+import { signOut } from '@/lib/auth';
 import { showNotice } from '@/lib/notice';
 import { goToWelcome } from '@/lib/session';
-import { actions, useStore, type Appearance } from '@/lib/store';
+import { useStore, type Appearance } from '@/lib/store';
 import { space, text, useOnda } from '@/theme/onda';
 
 // Tela 14 · Meu perfil (Figma: Prototype → 14 · Meu perfil).
@@ -57,8 +58,8 @@ export default function Perfil() {
         <Grupo>
           <ListItem
             label="Sair"
-            onPress={() => {
-              actions.signOut();
+            onPress={async () => {
+              await signOut();
               goToWelcome();
             }}
           />

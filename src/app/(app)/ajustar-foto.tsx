@@ -11,6 +11,7 @@ import Svg, { Circle, Defs, Mask, Rect } from 'react-native-svg';
 import { Button, TopBar } from '@/components/onda';
 import { showNotice } from '@/lib/notice';
 import { photoDraft } from '@/lib/photo-draft';
+import { syncProfile } from '@/lib/profile';
 import { actions } from '@/lib/store';
 import { radius, space, text, useOnda } from '@/theme/onda';
 
@@ -98,6 +99,7 @@ export default function AjustarFoto() {
         .renderAsync();
       const saved = await rendered.saveAsync({ format: SaveFormat.JPEG, compress: 0.8, base64: true });
       actions.setPhoto(`data:image/jpeg;base64,${saved.base64}`);
+      syncProfile();
       photoDraft.set(null);
       router.back();
     } catch {

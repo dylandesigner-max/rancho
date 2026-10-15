@@ -1,4 +1,4 @@
-import { router } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 import ShoppingBasket from 'lucide-react-native/icons/shopping-basket';
 import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -24,6 +24,9 @@ export default function Inicio() {
 
   const inCart = purchase ? cartItems(purchase).length : 0;
   const total = purchase?.items.length ?? 0;
+
+  // Sessão encerrada (ex.: saiu em outro lugar): volta para Boas-vindas.
+  if (!userName) return <Redirect href="/" />;
 
   return (
     <SafeAreaView edges={['top', 'bottom']} style={[styles.root, { backgroundColor: color.bg.canvas }]}>

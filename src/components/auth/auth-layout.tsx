@@ -10,16 +10,18 @@ type AuthLayoutProps = {
   /** Fica fixo embaixo e sobe junto com o teclado. */
   footer?: ReactNode;
   contentStyle?: ViewStyle;
+  /** Ação do voltar; o padrão é a tela anterior. */
+  onBack?: () => void;
 };
 
 /** Estrutura das telas de entrada (3, 4 e 5): TopBar sem título, conteúdo rolável e rodapé fixo. */
-export function AuthLayout({ children, footer, contentStyle }: AuthLayoutProps) {
+export function AuthLayout({ children, footer, contentStyle, onBack }: AuthLayoutProps) {
   const { color } = useOnda();
 
   return (
     <SafeAreaView edges={['top', 'bottom']} style={[styles.root, { backgroundColor: color.bg.canvas }]}>
       <KeyboardAvoidingView style={styles.root} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        <TopBar />
+        <TopBar onBack={onBack} />
         <ScrollView
           contentContainerStyle={[styles.content, contentStyle]}
           keyboardShouldPersistTaps="handled">
