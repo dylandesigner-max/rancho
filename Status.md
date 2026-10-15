@@ -2,7 +2,7 @@
 
 > **Leia este arquivo no início de toda sessão e atualize no fim.** Ele é a memória do projeto: o que existe no Figma e no código, o que foi decidido e o que vem a seguir. Assim uma sessão nova (local ou na nuvem) continua de onde a anterior parou sem refazer descobertas.
 >
-> **Última atualização:** 15/10/2026 · telas 1 a 9 implementadas; versão PWA pronta para publicar (falta criar o projeto na Cloudflare).
+> **Última atualização:** 15/10/2026 · telas 1 a 9 implementadas; PWA publicado na Cloudflare (https://rancho.dylan-dsgner.workers.dev).
 
 ---
 
@@ -13,6 +13,7 @@
 | **Produto** | App de compra do mês: planejar a lista, controlar gastos na hora e aprender com o histórico. Brief completo em [`docs/product-brief.md`](docs/product-brief.md). |
 | **Quem** | Projeto de portfólio de Product Design (designer = dono do produto). Comunicação em pt-BR. |
 | **Repositório** | [github.com/dylandesigner-max/rancho](https://github.com/dylandesigner-max/rancho) (público) |
+| **App (PWA)** | [rancho.dylan-dsgner.workers.dev](https://rancho.dylan-dsgner.workers.dev) · Cloudflare Workers, publica sozinho a cada merge na `main` |
 | **Figma** | [Rancho](https://www.figma.com/design/imkUw2bVyRrBlHJt9v9Wsp/Rancho) · fileKey `imkUw2bVyRrBlHJt9v9Wsp` |
 | **Design system** | **Onda** (no Figma: página Design System; no código: `src/theme/onda` + `src/components/onda`) |
 | **Stack** | Expo SDK 57 · React Native 0.86 · Expo Router · TypeScript · Reanimated · react-native-svg · Lucide |
@@ -160,11 +161,12 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 - Caminho: **PWA** (Safari → Compartilhar → Adicionar à Tela de Início).
 - Preferência do designer: **Cloudflare** (hospedagem) e **Supabase** (contas e banco).
 - **Pronto (15/10):** manifesto, metas do iOS, ícones provisórios, dados no aparelho, abrir offline (service worker) e config da Cloudflare. Detalhes e passo a passo em [`docs/pwa.md`](docs/pwa.md).
-- **Falta:** criar o projeto na Cloudflare ligado ao GitHub (passo único, no painel do designer), testar a instalação no iPhone, desenhar o ícone do app no Figma. Depois: contas e sincronização com Supabase.
+- **Publicado (15/10):** https://rancho.dylan-dsgner.workers.dev, projeto da Cloudflare ligado ao GitHub (build `npm run build:web`, deploy `npx wrangler deploy`). Build ok.
+- **Falta:** testar a instalação e o uso offline no iPhone, desenhar o ícone do app no Figma. Depois: contas e sincronização com Supabase.
 
 ## 9. Próximos passos
 
 1. **Tela 10 · Compra em andamento** no Figma (abas Pendentes / No carrinho, resumo sempre visível). Substitui a lista provisória.
 2. Telas 11 (colocar no carrinho, com prévia do cálculo) e 12 (alertas: BudgetSummary ganha estados).
-3. **PWA:** código pronto. Falta conectar a Cloudflare ao repositório (ver `docs/pwa.md`), instalar no iPhone e desenhar o **ícone do app** no Figma (hoje provisório).
+3. **PWA:** publicado. Falta testar no iPhone (instalar, abrir offline) e desenhar o **ícone do app** no Figma (hoje provisório).
 4. Depois: Supabase (contas reais + sincronização), telas 13–16.
