@@ -46,7 +46,7 @@ Seções na página **Prototype** do Figma, cada uma com linha Light e Dark (fra
 | 9 | Adicionar item (folha) | `09 · Adicionar item` (93:888) | ✅ | ✅ `src/components/compra/adicionar-item-sheet.tsx` |
 | 10 | Compra em andamento | `10 · Compra em andamento` (116:1239) | 🟡 aguardando revisão | ⚠️ lista provisória no código |
 | 11 | Colocar no carrinho (folha) | `11 · Colocar no carrinho` (121:1540) | 🟡 aguardando revisão | — |
-| 12 | Alertas de orçamento | — | — | — |
+| 12 | Alertas de orçamento | `12 · Alertas de orçamento` (125:2096) | 🟡 aguardando revisão | — |
 | 13 | Concluir compra *(opcional)* | — | — | — |
 | 14 | Meu perfil | — | — | — (avatar mostra "Em breve") |
 | 15 | Editar perfil | — | — | — |
@@ -90,7 +90,7 @@ Amostra visual: página **Design System** → frame **"Onda · Foundations"** (2
 | AmountField (Default, Focus, Filled) | 74:51 | Mesmas medidas do TextField; "R$" fixo; digitação a partir dos centavos. |
 | TopBar | 82:24 | Voltar + título opcional (Heading/Medium). |
 | ProgressBar | 82:51 | Trilho `bg/subtle`, preenchimento **`bg/accent` (laranja)**. |
-| BudgetSummary (Normal) | 82:64 | Saldo em destaque (Amount/Large), barra, gasto/orçamento. Estados de alerta virão na tela 12. |
+| BudgetSummary (Normal, Warning, Over) | 82:64 | Saldo em destaque (Amount/Large), barra, gasto/orçamento. Warning (≥ 80%): fundo `bg/warning-subtle`, barra `bg/warning`, aviso. Over: fundo `bg/danger-subtle`, "Acima do orçamento" + excedente em `text/danger`. Propriedade de texto Alerta. |
 | QuantityStepper | 91:27 | − e + em `icon/accent` sobre `bg/accent-subtle`; mínimo 1. |
 | Button · Ghost | 120:29 | Só texto `text/brand`, altura 52; ação secundária (ex.: "Devolver para pendentes"). |
 | Tab (Active, Inactive) | 115:30 | Aba com contador; ativa em `bg/surface` com contador `text/accent` sobre `bg/accent-subtle`. |
@@ -148,6 +148,8 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 | 14/10 | Orçamento obrigatório ao criar compra; saldo é o número em destaque no resumo. |
 | 14/10 | Usar o **laranja (`bg/accent`) em partes dos componentes** para o app não ficar todo verde (ex.: barra de progresso, stepper, subtotal). Cuidado para não confundir com o âmbar de alerta na tela 12. |
 | 14/10 | Uso pessoal sem lojas: **web app instalável (PWA)** no iPhone. Login com Apple fica indisponível nessa fase. |
+| 16/10 | Alerta de orçamento: **âmbar a partir de 80%** do orçamento; vermelho quando passa. Nada é bloqueado. |
+| 16/10 | Na folha "Colocar no carrinho" o **preço é obrigatório**; item do carrinho abre a mesma folha para editar ou devolver para pendentes. |
 | 15/10 | PWA: dados no aparelho com AsyncStorage (vale para web e nativo); service worker próprio gerado no build (sem biblioteca); deploy na Cloudflare via Workers com arquivos estáticos (`wrangler.jsonc`). Ícones do PWA provisórios até o ícone do app ser desenhado. |
 
 ## 7. Ambiente e ferramentas
@@ -173,6 +175,6 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 ## 9. Próximos passos
 
 1. **Revisar no Figma as telas 10 e 11** (desenhadas em 16/10). Depois de aprovadas, implementar no código (substitui a lista provisória).
-2. Tela 12 (alertas: BudgetSummary ganha estados).
+2. Revisar a tela 12 (alertas). Em seguida: Início com compra em andamento (lacuna) e tela 13.
 3. **PWA:** publicado. Falta testar no iPhone (instalar, abrir offline) e desenhar o **ícone do app** no Figma (hoje provisório).
 4. Depois: Supabase (contas reais + sincronização), telas 13–16.
