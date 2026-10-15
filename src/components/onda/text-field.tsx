@@ -6,6 +6,8 @@ import { Platform, Pressable, StyleSheet, Text, TextInput, View, type TextInputP
 
 import { radius, space, text, useOnda } from '@/theme/onda';
 
+import { noWebFocusOutline } from './web-styles';
+
 type TextFieldProps = Omit<TextInputProps, 'style' | 'secureTextEntry'> & {
   label: string;
   /** Texto de ajuda abaixo do campo (ex.: regra da senha). */
@@ -57,7 +59,7 @@ export function TextField({ label, helper, error, password = false, onFocus, onB
             setFocused(false);
             onBlur?.(e);
           }}
-          style={[styles.input, { color: color.text.primary }]}
+          style={[styles.input, { color: color.text.primary }, noWebFocusOutline]}
         />
         {password && (
           <Pressable
@@ -100,6 +102,9 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
+    // Na web o campo tem largura própria (atributo size); assim ele cabe no espaço.
+    flexBasis: 0,
+    minWidth: 0,
     height: '100%',
     fontFamily: text.body.medium.fontFamily,
     fontSize: text.body.medium.fontSize,

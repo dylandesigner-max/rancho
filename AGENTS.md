@@ -74,4 +74,7 @@ Nunca implemente UI no código antes da tela estar aprovada no Figma. Os tokens 
 - Ícones: Lucide, sempre importados por arquivo (`lucide-react-native/icons/arrow-left`), nunca do pacote inteiro.
 - Telas de entrada em `src/app/(auth)/`; o resto do app vai em `src/app/(app)/`.
 - Contas: `src/lib/auth.ts` é um serviço SIMULADO até escolhermos o real. E-mails que contêm "erro" simulam falha.
+- Estado do app (usuário e compra) em `src/lib/store.ts`, só na memória por enquanto. Dinheiro: use `src/lib/money.ts` (centavos inteiros, `formatBRL`, `digitsToCents`, `subtotal`).
+- Trechos de interface ainda não desenhados ficam marcados com `// PROVISÓRIO` e devem ser trocados quando a tela for aprovada no Figma.
+- Folhas inferiores: use `BottomSheet` do Onda. Animações dentro de `Modal` com o `Animated` do React Native (as de entrada do Reanimated não rodam no Modal na web).
 - Nunca passe dados pessoais (e-mail etc.) por parâmetro de rota: na versão web eles aparecem na URL.
