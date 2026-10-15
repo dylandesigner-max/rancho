@@ -1,11 +1,12 @@
 import { router } from 'expo-router';
 import ShoppingBasket from 'lucide-react-native/icons/shopping-basket';
 import { useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { NovaCompraSheet } from '@/components/compra/nova-compra-sheet';
 import { Avatar, Button, EmptyState } from '@/components/onda';
+import { showNotice } from '@/lib/notice';
 import { actions, firstName, useStore } from '@/lib/store';
 import { space, text, useOnda } from '@/theme/onda';
 
@@ -29,7 +30,7 @@ export default function Inicio() {
         </View>
         <Avatar
           name={userName || name}
-          onPress={() => Alert.alert('Em breve', 'O Meu perfil (tela 14) ainda vai ser desenhado.')}
+          onPress={() => showNotice('Em breve', 'O Meu perfil (tela 14) ainda vai ser desenhado.')}
         />
       </View>
 

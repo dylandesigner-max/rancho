@@ -2,7 +2,7 @@
 
 > **Leia este arquivo no início de toda sessão e atualize no fim.** Ele é a memória do projeto: o que existe no Figma e no código, o que foi decidido e o que vem a seguir. Assim uma sessão nova (local ou na nuvem) continua de onde a anterior parou sem refazer descobertas.
 >
-> **Última atualização:** 14/10/2026 · telas 1 a 9 desenhadas, aprovadas e implementadas.
+> **Última atualização:** 15/10/2026 · telas 1 a 9 implementadas; versão PWA pronta para publicar (falta criar o projeto na Cloudflare).
 
 ---
 
@@ -102,10 +102,13 @@ src/components/onda/   componentes do design system
 src/components/auth/   AuthLayout, AuthHeader, TextLink
 src/components/compra/ folhas Nova compra e Adicionar item
 src/components/splash/ animação da Splash
-src/lib/               auth (simulado), store (memória), money, validation, email-draft
+src/lib/               auth (simulado), store (salvo no aparelho), money, validation, notice, pwa
 src/theme/onda/        tokens gerados + fontes + useOnda()
 design/tokens/         export das variáveis do Figma (onda.figma.json)
 scripts/build-tokens.mjs  gera src/theme/onda/tokens.ts (npm run tokens)
+scripts/build-pwa.mjs     gera dist/sw.js depois do export web (npm run build:web)
+public/                manifesto, ícones do PWA e _headers da Cloudflare (copiados para dist/)
+src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 ```
 
 ### 5.2 Convenções
@@ -121,7 +124,7 @@ scripts/build-tokens.mjs  gera src/theme/onda/tokens.ts (npm run tokens)
 ### 5.3 Simulações (até existir backend)
 
 - **Contas:** `src/lib/auth.ts` só imita a rede. Qualquer e-mail entra; **e-mails com "erro" simulam falha** (ex.: `erro@rancho.app`). No login, o nome vem do e-mail (dylan@… → Dylan).
-- **Dados:** `src/lib/store.ts` guarda usuário e compra **só na memória**. Fechar o app apaga tudo.
+- **Dados:** `src/lib/store.ts` guarda usuário e compra **no aparelho** (AsyncStorage; na web, `localStorage`), chave `rancho/estado/v1`. Quem já entrou abre direto no Início. Ainda não há sair da conta nem sincronização.
 
 ## 6. Decisões (registro)
 
@@ -139,6 +142,7 @@ scripts/build-tokens.mjs  gera src/theme/onda/tokens.ts (npm run tokens)
 | 14/10 | Orçamento obrigatório ao criar compra; saldo é o número em destaque no resumo. |
 | 14/10 | Usar o **laranja (`bg/accent`) em partes dos componentes** para o app não ficar todo verde (ex.: barra de progresso, stepper, subtotal). Cuidado para não confundir com o âmbar de alerta na tela 12. |
 | 14/10 | Uso pessoal sem lojas: **web app instalável (PWA)** no iPhone. Login com Apple fica indisponível nessa fase. |
+| 15/10 | PWA: dados no aparelho com AsyncStorage (vale para web e nativo); service worker próprio gerado no build (sem biblioteca); deploy na Cloudflare via Workers com arquivos estáticos (`wrangler.jsonc`). Ícones do PWA provisórios até o ícone do app ser desenhado. |
 
 ## 7. Ambiente e ferramentas
 
@@ -155,11 +159,12 @@ scripts/build-tokens.mjs  gera src/theme/onda/tokens.ts (npm run tokens)
 - Sem orçamento para App Store / Play Store. Sem Mac → não dá para instalar app nativo de graça.
 - Caminho: **PWA** (Safari → Compartilhar → Adicionar à Tela de Início).
 - Preferência do designer: **Cloudflare** (hospedagem) e **Supabase** (contas e banco).
-- Falta: manifesto/ícones/metas iOS, publicação, **guardar dados no aparelho** (offline no mercado) e, depois, contas e sincronização com Supabase.
+- **Pronto (15/10):** manifesto, metas do iOS, ícones provisórios, dados no aparelho, abrir offline (service worker) e config da Cloudflare. Detalhes e passo a passo em [`docs/pwa.md`](docs/pwa.md).
+- **Falta:** criar o projeto na Cloudflare ligado ao GitHub (passo único, no painel do designer), testar a instalação no iPhone, desenhar o ícone do app no Figma. Depois: contas e sincronização com Supabase.
 
 ## 9. Próximos passos
 
 1. **Tela 10 · Compra em andamento** no Figma (abas Pendentes / No carrinho, resumo sempre visível). Substitui a lista provisória.
 2. Telas 11 (colocar no carrinho, com prévia do cálculo) e 12 (alertas: BudgetSummary ganha estados).
-3. **PWA** em sessão separada (pode ser na nuvem): manifesto, ícones, persistência local, deploy na Cloudflare.
+3. **PWA:** código pronto. Falta conectar a Cloudflare ao repositório (ver `docs/pwa.md`), instalar no iPhone e desenhar o **ícone do app** no Figma (hoje provisório).
 4. Depois: Supabase (contas reais + sincronização), telas 13–16.

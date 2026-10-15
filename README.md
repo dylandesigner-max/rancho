@@ -45,6 +45,8 @@ Escaneie o QR code com a câmera (iOS) ou com o Expo Go (Android).
 
 > No Windows, se o PowerShell bloquear o `npx`, use `npx.cmd expo start`.
 
+**Versão web (PWA):** `npm run preview:web` gera o site e abre em `http://localhost:8081`. Publicação na Cloudflare e instalação no iPhone em [`docs/pwa.md`](docs/pwa.md).
+
 **Contas ainda são simuladas.** Qualquer e-mail entra; para ver os estados de erro, use um e-mail que contenha "erro" (ex.: `erro@rancho.app`).
 
 ## Estrutura

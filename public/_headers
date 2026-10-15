@@ -1,0 +1,12 @@
+# Cabeçalhos da Cloudflare para o PWA.
+# O service worker e o manifesto precisam ser buscados de novo a cada visita (é assim que o app se atualiza).
+/sw.js
+  Cache-Control: no-cache
+/manifest.webmanifest
+  Cache-Control: no-cache
+
+# Arquivos com hash no nome nunca mudam: podem ficar guardados por um ano.
+/_expo/static/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
