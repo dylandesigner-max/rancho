@@ -22,6 +22,7 @@
 ## 2. Processo de trabalho (regras)
 
 1. **Figma primeiro.** Cada tela é desenhada no Figma, revisada pelo designer e **só depois de aprovada** vai para o código.
+   - **Autonomia (16/10):** o Claude monta componentes e telas no Figma sem pedir licença; o designer avalia direto no Figma. Só decisões importantes de produto vêm como enquete.
 2. **Componentes sob demanda.** O Onda cresce com as telas: componente novo só quando uma tela pede.
 3. **O designer ajusta direto no Figma** (ex.: medidas de componentes). Ao sincronizar, ler os valores reais do Figma, conferir variantes irmãs e propagar para variantes, tokens e código.
 4. **Tokens do código espelham o Figma.** Nunca editar `src/theme/onda/tokens.ts` à mão.
@@ -43,8 +44,8 @@ Seções na página **Prototype** do Figma, cada uma com linha Light e Dark (fra
 | 7 | Nova compra (folha) | `07 · Nova compra` (75:680) | ✅ | ✅ `src/components/compra/nova-compra-sheet.tsx` |
 | 8 | Compra: lista vazia | `08 · Compra` (82:876) | ✅ | ✅ `src/app/(app)/compra.tsx` |
 | 9 | Adicionar item (folha) | `09 · Adicionar item` (93:888) | ✅ | ✅ `src/components/compra/adicionar-item-sheet.tsx` |
-| 10 | Compra em andamento | — | ⏳ próxima | ⚠️ lista provisória no código |
-| 11 | Colocar no carrinho | — | — | — |
+| 10 | Compra em andamento | `10 · Compra em andamento` (116:1239) | 🟡 aguardando revisão | ⚠️ lista provisória no código |
+| 11 | Colocar no carrinho (folha) | `11 · Colocar no carrinho` (121:1540) | 🟡 aguardando revisão | — |
 | 12 | Alertas de orçamento | — | — | — |
 | 13 | Concluir compra *(opcional)* | — | — | — |
 | 14 | Meu perfil | — | — | — (avatar mostra "Em breve") |
@@ -91,6 +92,10 @@ Amostra visual: página **Design System** → frame **"Onda · Foundations"** (2
 | ProgressBar | 82:51 | Trilho `bg/subtle`, preenchimento **`bg/accent` (laranja)**. |
 | BudgetSummary (Normal) | 82:64 | Saldo em destaque (Amount/Large), barra, gasto/orçamento. Estados de alerta virão na tela 12. |
 | QuantityStepper | 91:27 | − e + em `icon/accent` sobre `bg/accent-subtle`; mínimo 1. |
+| Button · Ghost | 120:29 | Só texto `text/brand`, altura 52; ação secundária (ex.: "Devolver para pendentes"). |
+| Tab (Active, Inactive) | 115:30 | Aba com contador; ativa em `bg/surface` com contador `text/accent` sobre `bg/accent-subtle`. |
+| Tabs | 115:31 | Trilha `bg/subtle` com duas Tab (Pendentes / No carrinho). |
+| ItemRow (Pending, InCart) | 115:54 | Linha tocável (mín. 64): círculo vazio ou check `bg/brand`; nome, detalhe e valor (estimado em `text/secondary`; subtotal em `text/accent`). |
 
 ## 5. Código
 
@@ -167,7 +172,7 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 
 ## 9. Próximos passos
 
-1. **Tela 10 · Compra em andamento** no Figma (abas Pendentes / No carrinho, resumo sempre visível). Substitui a lista provisória.
-2. Telas 11 (colocar no carrinho, com prévia do cálculo) e 12 (alertas: BudgetSummary ganha estados).
+1. **Revisar no Figma as telas 10 e 11** (desenhadas em 16/10). Depois de aprovadas, implementar no código (substitui a lista provisória).
+2. Tela 12 (alertas: BudgetSummary ganha estados).
 3. **PWA:** publicado. Falta testar no iPhone (instalar, abrir offline) e desenhar o **ícone do app** no Figma (hoje provisório).
 4. Depois: Supabase (contas reais + sincronização), telas 13–16.
