@@ -1,18 +1,24 @@
-import { router } from 'expo-router';
-import { Alert, Platform, StyleSheet, Text, View } from 'react-native';
+import { Redirect, router } from 'expo-router';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { TextLink } from '@/components/auth/text-link';
 import { Button, Logo, SocialButton } from '@/components/onda';
+import { showNotice } from '@/lib/notice';
+import { useStore } from '@/lib/store';
 import { font, space, text, useOnda } from '@/theme/onda';
 
 // Tela 2 · Boas-vindas (Figma: Prototype → 02 · Boas-vindas).
 
 const soon = (what: string) =>
-  Alert.alert('Em breve', `${what} vai funcionar quando conectarmos o serviço de contas.`);
+  showNotice('Em breve', `${what} vai funcionar quando conectarmos o serviço de contas.`);
 
 export default function BoasVindas() {
   const { color } = useOnda();
+  const userName = useStore((s) => s.userName);
+
+  // Quem já entrou (dados salvos no aparelho) abre direto no Início.
+  if (userName) return <Redirect href="/inicio" />;
 
   return (
     <SafeAreaView edges={['top', 'bottom']} style={[styles.root, { backgroundColor: color.bg.canvas }]}>

@@ -1,18 +1,19 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { AuthHeader } from '@/components/auth/auth-header';
 import { AuthLayout } from '@/components/auth/auth-layout';
 import { TextLink } from '@/components/auth/text-link';
 import { Button, Checkbox, TextField } from '@/components/onda';
 import { signUp } from '@/lib/auth';
+import { showNotice } from '@/lib/notice';
 import { MIN_PASSWORD_LENGTH, isValidEmail } from '@/lib/validation';
 import { font, space, text, useOnda } from '@/theme/onda';
 
 // Tela 4 · Criar conta (Figma: Prototype → 04 · Criar conta).
 
-const soon = (what: string) => Alert.alert('Em breve', `${what} ainda não foi publicada.`);
+const soon = (what: string) => showNotice('Em breve', `${what} ainda não foi publicada.`);
 
 export default function CriarConta() {
   const { color } = useOnda();

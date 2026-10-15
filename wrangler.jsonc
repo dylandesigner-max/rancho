@@ -1,0 +1,13 @@
+// Publicação do PWA na Cloudflare (Workers com arquivos estáticos).
+// O site é a pasta dist/ gerada por `npm run build:web`. Passo a passo em docs/pwa.md.
+{
+  "name": "rancho",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    // /inicio serve inicio.html (endereços sem .html).
+    "html_handling": "auto-trailing-slash",
+    // Endereço desconhecido: abre o app e o Expo Router mostra a tela certa.
+    "not_found_handling": "single-page-application"
+  }
+}
