@@ -36,7 +36,7 @@ export default function NovaSenha() {
     setLoading(false);
     if (!result.ok) {
       if (result.reason === 'expired-link') setStatus('expired');
-      else setError(authMessage(result.reason));
+      else setError(authMessage(result.reason, result.code));
       return;
     }
     router.replace('/inicio');

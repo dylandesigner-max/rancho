@@ -20,7 +20,7 @@ export default function ExcluirConta() {
     const result = await deleteAccount();
     setLoading(false);
     if (!result.ok) {
-      showNotice('Não deu para excluir a conta', authMessage(result.reason));
+      showNotice('Não deu para excluir a conta', authMessage(result.reason, result.code));
       return;
     }
     goToWelcome();

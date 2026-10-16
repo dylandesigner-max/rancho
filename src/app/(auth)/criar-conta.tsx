@@ -41,7 +41,7 @@ export default function CriarConta() {
     const result = await signUp(name.trim(), email.trim(), password);
     setLoading(false);
     if (!result.ok) {
-      setEmailError(authMessage(result.reason));
+      setEmailError(authMessage(result.reason, result.code));
       return;
     }
     router.replace('/inicio');
