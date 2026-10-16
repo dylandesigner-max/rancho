@@ -44,7 +44,7 @@ Em **Authentication**:
 
 ### 4. Pegar as chaves do app
 Em **Project Settings → API Keys** (ou **Data API**), copie:
-- **Project URL** (ex.: `https://abcd1234.supabase.co`)
+- **Project URL** (ex.: `https://abcd1234.supabase.co`). **Sem** `/rest/v1/` no fim: o endereço que aparece em "Data API" tem esse pedaço a mais e, nas versões antigas do app, fazia o cadastro voltar 404 (o app atual corta esse final sozinho).
 - **Publishable key** (começa com `sb_publishable_`)
 
 > Use **só** a publishable key no app. A **secret key** (ou `service_role`) dá acesso total ao banco e **nunca** pode ir para o app nem para o GitHub.
