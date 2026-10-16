@@ -72,10 +72,10 @@ O ambiente na nuvem do Claude bloqueia o Supabase por padrão. Para liberar: nas
 - A foto de perfil antiga também fica só no aparelho até ser escolhida de novo (aí ela sobe para o Storage).
 
 ## Como testar no iPhone
-1. **Criar conta** com um e-mail seu → deve cair direto no Início.
+1. **Criar conta** com um e-mail seu → deve cair direto no Início. (Todos os passos abaixo passaram no iPhone em 16/10.)
 2. **Meu perfil → Editar nome** e **Foto de perfil** → depois confira no Supabase: **Table Editor → profiles** e **Storage → avatars**.
 3. **Sair** e **Entrar** de novo → nome e foto voltam.
-4. **Esqueci a senha** → abra o link do e-mail **no iPhone** → tela "Criar nova senha" → salvar → Início.
+4. **Esqueci a senha** → abra o link do e-mail **no iPhone** → tela "Criar nova senha" → salvar → Início. Use sempre o link do **último** pedido: cada pedido novo invalida o anterior ("Este link expirou").
 5. **Excluir conta** → a linha some de `profiles` e a conta some de **Authentication → Users**.
 
 ## Limitações conhecidas

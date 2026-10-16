@@ -2,7 +2,7 @@
 
 > **Leia este arquivo no início de toda sessão e atualize no fim.** Ele é a memória do projeto: o que existe no Figma e no código, o que foi decidido e o que vem a seguir. Assim uma sessão nova (local ou na nuvem) continua de onde a anterior parou sem refazer descobertas.
 >
-> **Última atualização:** 16/10/2026 · telas do plano v2 (mais 06b, 14b, 14c e 05b) desenhadas e implementadas; PWA publicado; **Supabase fase A (contas reais) pronto no código**, falta criar o projeto (ver `docs/supabase.md`).
+> **Última atualização:** 16/10/2026 · telas do plano v2 (mais 06b, 14b, 14c e 05b) desenhadas e implementadas; PWA publicado; **Supabase fase A (contas reais) no ar e testada no iPhone** (cadastro, perfil com nome e foto, sair/entrar, nova senha por e-mail, excluir conta); aviso "Nova versão pronta" no PWA.
 
 ---
 
@@ -167,6 +167,7 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 | 14/10 | Usar o **laranja (`bg/accent`) em partes dos componentes** para o app não ficar todo verde (ex.: barra de progresso, stepper, subtotal). Cuidado para não confundir com o âmbar de alerta na tela 12. |
 | 14/10 | Uso pessoal sem lojas: **web app instalável (PWA)** no iPhone. Login com Apple fica indisponível nessa fase. |
 | 16/10 | **Aviso de atualização do PWA** (pedido do designer): a versão nova espera e o app mostra um aviso fixo no rodapé; "Atualizar" recarrega já na versão nova. Fim de re-adicionar o app à Tela de Início. |
+| 16/10 | **Supabase no ar (projeto `rancho`, São Paulo).** A `EXPO_PUBLIC_SUPABASE_URL` é a Project URL **sem** `/rest/v1` (com ele o cadastro dava 404; o app agora corta esse final). Testes no iPhone ok: cadastro, nome e foto (tabela `profiles` e bucket `avatars`), sair/entrar, nova senha por link, excluir conta. O link de nova senha falhou uma vez ("Este link expirou") e funcionou no pedido seguinte: provável link antigo; cada pedido invalida o anterior. |
 | 16/10 | **Supabase em duas fases:** A = contas reais (login, cadastro sem confirmação de e-mail, nova senha por link, perfil com nome e foto, excluir conta); B = dados da compra, depois dos esboços da V2. Google fica para depois. |
 | 16/10 | Tela extra **14c · Aparência** (pedido do designer): Automático (padrão, segue o aparelho), Claro ou Escuro; vale na hora e fica salvo no aparelho. No código, `useOnda()` passa a respeitar a preferência antes do `useColorScheme()`. |
 | 16/10 | Tela extra **14b · Foto de perfil** (pedido do designer): foto escolhida pelo seletor do sistema, recorte em círculo, remover volta à inicial. Fica só no aparelho até existir serviço de contas. |
@@ -194,14 +195,13 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 - Preferência do designer: **Cloudflare** (hospedagem) e **Supabase** (contas e banco).
 - **Pronto (15/10):** manifesto, metas do iOS, ícones provisórios, dados no aparelho, abrir offline (service worker) e config da Cloudflare. Detalhes e passo a passo em [`docs/pwa.md`](docs/pwa.md).
 - **Publicado (15/10):** https://rancho.dylan-dsgner.workers.dev, projeto da Cloudflare ligado ao GitHub (build `npm run build:web`, deploy `npx wrangler deploy`). Build ok.
-- **Falta:** testar a instalação e o uso offline no iPhone, desenhar o ícone do app no Figma. Depois: contas e sincronização com Supabase.
+- **Testado no iPhone (16/10):** instalação, uso offline e contas reais.
+- **Falta:** desenhar o ícone do app no Figma. Depois: sincronização da compra (Supabase fase B).
 
 ## 9. Próximos passos
 
-1. **Criar o projeto no Supabase e ligar as chaves na Cloudflare** (passo a passo em `docs/supabase.md`); depois testar contas no iPhone.
-2. **V2:** o designer compartilha os esboços de ideação → planejamento num documento didático para aprovação → Figma → código (mesmo processo). A fase B do Supabase (compra na nuvem) nasce desse plano.
-3. Lacunas ainda sem desenho: **estado vazio das abas** (hoje texto provisório), editar nome/orçamento da compra, textos de Termos e Privacidade.
-4. Ícone do app no Figma (PWA e nativo ainda provisórios).
+1. **V2:** o designer compartilha os esboços de ideação → planejamento num documento didático para aprovação → Figma → código (mesmo processo). A fase B do Supabase (compra na nuvem) nasce desse plano.
+2. Lacunas ainda sem desenho: **estado vazio das abas** (hoje texto provisório), editar nome/orçamento da compra, textos de Termos e Privacidade.
+3. Ícone do app no Figma (PWA e nativo ainda provisórios).
+4. E-mails do Supabase em português: exige SMTP próprio (hoje o de "Esqueci a senha" chega em inglês).
 5. Depois: login com Google.
-3. **PWA:** publicado. Falta testar no iPhone (instalar, abrir offline) e desenhar o **ícone do app** no Figma (hoje provisório).
-4. Depois: Supabase (contas reais + sincronização), telas 13–16.
