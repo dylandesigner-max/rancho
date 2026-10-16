@@ -47,7 +47,7 @@ export function BudgetSummary({ budgetCents, spentCents }: BudgetSummaryProps) {
         : null;
 
   return (
-    <View style={[styles.root, { backgroundColor: look.bg, borderColor: color.border.default }]}>
+    <View style={[styles.root, { backgroundColor: look.bg }]}>
       <View style={styles.balance}>
         <Text style={[text.caption, { color: color.text.secondary }]}>{label}</Text>
         <Text style={[text.amount.large, { color: look.value }]} accessibilityLabel={`${label} ${amount}`}>
@@ -81,7 +81,6 @@ export function BudgetSummary({ budgetCents, spentCents }: BudgetSummaryProps) {
 
 const styles = StyleSheet.create({
   root: {
-    borderWidth: 1,
     borderRadius: radius.lg,
     padding: space.md,
     gap: space.sm,

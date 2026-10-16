@@ -1,12 +1,12 @@
 import { Redirect, router } from 'expo-router';
 import ClipboardList from 'lucide-react-native/icons/clipboard-list';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AdicionarItemSheet } from '@/components/compra/adicionar-item-sheet';
 import { ColocarNoCarrinhoSheet } from '@/components/compra/colocar-no-carrinho-sheet';
-import { BudgetSummary, Button, EmptyState, ItemRow, Tabs, TopBar } from '@/components/onda';
+import { BudgetSummary, Button, Divider, EmptyState, ItemRow, Tabs, TopBar } from '@/components/onda';
 import { formatBRL, subtotal } from '@/lib/money';
 import { actions, cartItems, pendingItems, spentCents, useStore, type Item } from '@/lib/store';
 import { radius, space, text, useOnda } from '@/theme/onda';
@@ -65,17 +65,18 @@ export default function Compra() {
           </View>
           <ScrollView style={styles.flex} contentContainerStyle={styles.listContent}>
             {list.length > 0 ? (
-              <View style={[styles.card, { backgroundColor: color.bg.surface, borderColor: color.border.default }]}>
+              <View style={[styles.card, { backgroundColor: color.bg.surface }]}>
                 {list.map((item, index) => (
-                  <ItemRow
-                    key={item.id}
-                    name={item.name}
-                    status={item.inCart ? 'inCart' : 'pending'}
-                    detail={item.inCart ? cartDetail(item) : pendingDetail(item)}
-                    amount={itemTotal(item)}
-                    onPress={() => setSelectedId(item.id)}
-                    last={index === list.length - 1}
-                  />
+                  <Fragment key={item.id}>
+                    {index > 0 && <Divider inset />}
+                    <ItemRow
+                      name={item.name}
+                      status={item.inCart ? 'inCart' : 'pending'}
+                      detail={item.inCart ? cartDetail(item) : pendingDetail(item)}
+                      amount={itemTotal(item)}
+                      onPress={() => setSelectedId(item.id)}
+                    />
+                  </Fragment>
                 ))}
               </View>
             ) : (
@@ -148,7 +149,6 @@ const styles = StyleSheet.create({
     paddingVertical: space.md,
   },
   card: {
-    borderWidth: 1,
     borderRadius: radius.lg,
     overflow: 'hidden',
   },

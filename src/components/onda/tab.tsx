@@ -10,7 +10,7 @@ type TabProps = {
 };
 
 /**
- * Tab do Onda (uma aba do Tabs). Ativa: bg/surface com borda border/default, contador
+ * Tab do Onda (uma aba do Tabs). Ativa: bg/surface (sem contorno), contador
  * text/accent sobre bg/accent-subtle. Inativa: transparente, texto text/secondary.
  */
 export function Tab({ label, count, active, onPress }: TabProps) {
@@ -24,7 +24,7 @@ export function Tab({ label, count, active, onPress }: TabProps) {
       accessibilityLabel={count != null ? `${label}, ${count}` : label}
       style={[
         styles.root,
-        active && { backgroundColor: color.bg.surface, borderColor: color.border.default, borderWidth: 1 },
+        active && { backgroundColor: color.bg.surface },
       ]}>
       <Text style={[text.label.medium, { color: active ? color.text.primary : color.text.secondary }]} numberOfLines={1}>
         {label}
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     height: 40,
-    borderRadius: radius.full,
+    borderRadius: radius.md,
     paddingHorizontal: space.md,
     flexDirection: 'row',
     alignItems: 'center',

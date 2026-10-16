@@ -9,14 +9,13 @@ type EmptyStateProps = {
   description: string;
 };
 
-/** EmptyState do Onda: ícone num círculo com contorno de marca, título e descrição. A ação fica fora. */
+/** EmptyState do Onda: ícone num círculo bg/brand-subtle, título e descrição. A ação fica fora. */
 export function EmptyState({ icon: Icon, title, description }: EmptyStateProps) {
   const { color } = useOnda();
 
   return (
     <View style={styles.root}>
-      <View
-        style={[styles.circle, { backgroundColor: color.bg.brandSubtle, borderColor: color.border.brandSubtle }]}>
+      <View style={[styles.circle, { backgroundColor: color.bg.brandSubtle }]}>
         <Icon color={color.icon.brand} size={44} />
       </View>
       <View style={styles.texts}>
@@ -38,7 +37,6 @@ const styles = StyleSheet.create({
     width: 96,
     height: 96,
     borderRadius: radius.full,
-    borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },

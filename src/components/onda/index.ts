@@ -6,6 +6,7 @@ export { BottomSheet } from './bottom-sheet';
 export { BudgetSummary, budgetState, type BudgetState } from './budget-summary';
 export { Button } from './button';
 export { Checkbox } from './checkbox';
+export { Divider } from './divider';
 export { EmptyState } from './empty-state';
 export { IconButton } from './icon-button';
 export { ItemRow } from './item-row';

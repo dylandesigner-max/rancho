@@ -11,11 +11,10 @@ type ListItemProps = {
   chevron?: boolean;
   tone?: 'default' | 'danger';
   onPress?: () => void;
-  last?: boolean;
 };
 
 /** ListItem do Onda: linha de menu (mín. 52) para agrupar num Card. Danger para ações destrutivas. */
-export function ListItem({ label, value, chevron = false, tone = 'default', onPress, last = false }: ListItemProps) {
+export function ListItem({ label, value, chevron = false, tone = 'default', onPress }: ListItemProps) {
   const { color } = useOnda();
 
   return (
@@ -28,8 +27,6 @@ export function ListItem({ label, value, chevron = false, tone = 'default', onPr
         styles.root,
         {
           backgroundColor: pressed ? color.bg.subtle : color.bg.surface,
-          borderBottomColor: color.border.default,
-          borderBottomWidth: last ? 0 : 1,
         },
       ]}>
       <Text style={[text.body.medium, styles.label, { color: tone === 'danger' ? color.text.danger : color.text.primary }]}>

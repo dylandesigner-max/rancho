@@ -197,7 +197,7 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
       "disabled": "#473632",
       "brand": "#8EE20F",
       "brandPressed": "#70BA00",
-      "brandSubtle": "#072019",
+      "brandSubtle": "#2D722766",
       "accent": "#F45F1C",
       "accentPressed": "#CE4305",
       "accentSubtle": "#340A00",

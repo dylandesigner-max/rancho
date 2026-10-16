@@ -50,7 +50,7 @@ export function SocialButton({ provider, onPress }: { provider: Provider; onPres
         styles.root,
         isApple
           ? { backgroundColor: color.bg.inverse }
-          : { backgroundColor: color.bg.surface, borderWidth: 1, borderColor: color.border.strong },
+          : { backgroundColor: color.bg.surface },
         pressed && styles.pressed,
       ]}>
       {isApple ? <AppleIcon color={fg} /> : <GoogleIcon />}

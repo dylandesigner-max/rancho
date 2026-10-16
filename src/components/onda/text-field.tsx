@@ -12,13 +12,13 @@ type TextFieldProps = Omit<TextInputProps, 'style' | 'secureTextEntry'> & {
   label: string;
   /** Texto de ajuda abaixo do campo (ex.: regra da senha). */
   helper?: string;
-  /** true = só borda de erro; string = borda de erro + mensagem no lugar do helper. */
+  /** true = só o fundo de erro; string = fundo de erro + mensagem no lugar do helper. */
   error?: boolean | string;
   /** Campo de senha com botão de mostrar/ocultar. */
   password?: boolean;
 };
 
-/** TextField do Onda: rótulo, campo de 52, ajuda/erro. Foco e erro usam borda de 2 px. */
+/** TextField do Onda: rótulo, campo de 52, ajuda/erro. Sem contorno: foco e erro mudam a cor do fundo. */
 export function TextField({ label, helper, error, password = false, onFocus, onBlur, ...input }: TextFieldProps) {
   const { color } = useOnda();
   const [focused, setFocused] = useState(false);
@@ -26,9 +26,7 @@ export function TextField({ label, helper, error, password = false, onFocus, onB
 
   const hasError = !!error;
   const message = typeof error === 'string' ? error : helper;
-  const strong = hasError || focused;
-  const borderColor = hasError ? color.border.danger : focused ? color.border.focus : color.border.strong;
-  const borderWidth = strong ? 2 : 1;
+  const background = hasError ? color.bg.dangerSubtle : focused ? color.bg.brandSubtle : color.bg.subtle;
 
   return (
     <View style={styles.root}>
@@ -37,12 +35,9 @@ export function TextField({ label, helper, error, password = false, onFocus, onB
         style={[
           styles.box,
           {
-            backgroundColor: color.bg.surface,
-            borderColor,
-            borderWidth,
-            // Compensa a borda mais grossa para o texto não "pular".
-            paddingLeft: space.md - (borderWidth - 1),
-            paddingRight: (password ? space['2xs'] : space.md) - (borderWidth - 1),
+            backgroundColor: background,
+            paddingLeft: space.md,
+            paddingRight: password ? space['2xs'] : space.md,
           },
         ]}>
         <TextInput

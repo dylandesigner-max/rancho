@@ -41,7 +41,7 @@ export function QuantityStepper({ label = 'Quantidade', value, onChange, min = 1
   return (
     <View style={styles.root}>
       <Text style={[text.label.medium, { color: color.text.primary }]}>{label}</Text>
-      <View style={[styles.box, { backgroundColor: color.bg.surface, borderColor: color.border.strong }]}>
+      <View style={[styles.box, { backgroundColor: color.bg.subtle }]}>
         {step(!canDecrease, () => onChange(clamp(value - 1)), Minus, 'Diminuir quantidade')}
         <TextInput
           value={draft ?? String(value)}
@@ -69,9 +69,8 @@ const styles = StyleSheet.create({
   },
   box: {
     height: 52,
-    borderWidth: 1,
     borderRadius: radius.md,
-    padding: space['2xs'] - 1,
+    padding: space['2xs'],
     flexDirection: 'row',
     alignItems: 'center',
   },

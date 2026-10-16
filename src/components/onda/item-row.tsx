@@ -11,15 +11,13 @@ type ItemRowProps = {
   amount?: string;
   status: 'pending' | 'inCart';
   onPress: () => void;
-  /** A última linha do cartão não tem divisória. */
-  last?: boolean;
 };
 
 /**
- * ItemRow do Onda: linha de item da compra (mín. 64), toda tocável. Pendente: círculo vazio
+ * ItemRow do Onda: linha de item da compra (mín. 64), toda tocável. Pendente: círculo bg/control
  * e valor estimado em text/secondary. No carrinho: check em bg/brand e subtotal em text/accent.
  */
-export function ItemRow({ name, detail, amount, status, onPress, last = false }: ItemRowProps) {
+export function ItemRow({ name, detail, amount, status, onPress }: ItemRowProps) {
   const { color } = useOnda();
   const inCart = status === 'inCart';
 
@@ -32,14 +30,12 @@ export function ItemRow({ name, detail, amount, status, onPress, last = false }:
         styles.root,
         {
           backgroundColor: pressed ? color.bg.subtle : color.bg.surface,
-          borderBottomColor: color.border.default,
-          borderBottomWidth: last ? 0 : 1,
         },
       ]}>
       <View
         style={[
           styles.check,
-          inCart ? { backgroundColor: color.bg.brand } : { borderWidth: 2, borderColor: color.border.strong },
+          { backgroundColor: inCart ? color.bg.brand : color.bg.control },
         ]}>
         {inCart && <Check color={color.icon.onBrand} size={16} strokeWidth={3} />}
       </View>

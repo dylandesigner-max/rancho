@@ -247,7 +247,8 @@
           "opacity": 70
         },
         "Dark": {
-          "alias": "green/950"
+          "alias": "green/700",
+          "opacity": 40
         }
       },
       "bg/accent": {

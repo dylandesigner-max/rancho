@@ -2,7 +2,7 @@
 
 > **Leia este arquivo no início de toda sessão e atualize no fim.** Ele é a memória do projeto: o que existe no Figma e no código, o que foi decidido e o que vem a seguir. Assim uma sessão nova (local ou na nuvem) continua de onde a anterior parou sem refazer descobertas.
 >
-> **Última atualização:** 16/10/2026 · telas do plano v2 (mais 06b, 14b, 14c e 05b) desenhadas e implementadas; PWA publicado; **Supabase fase A (contas reais) no ar e testada no iPhone** (cadastro, perfil com nome e foto, sair/entrar, nova senha por e-mail, excluir conta); aviso "Nova versão pronta" no PWA.
+> **Última atualização:** 16/10/2026 · telas do plano v2 (mais 06b, 14b, 14c e 05b) desenhadas e implementadas; PWA publicado; **Supabase fase A (contas reais) no ar e testada no iPhone** (cadastro, perfil com nome e foto, sair/entrar, nova senha por e-mail, excluir conta); aviso "Nova versão pronta" no PWA; **visual sem contornos** (V2) no Figma e no código, com o componente `Divider`.
 
 ---
 
@@ -102,6 +102,7 @@ Amostra visual: página **Design System** → frame **"Onda · Foundations"** (2
 | RadioItem (Selected true/false) | 139:50 | Opção de escolha única: rótulo, descrição opcional, rádio à direita (anel `border/brand` + ponto `bg/brand`). |
 | UpdateBanner | 146:47 | Aviso fixo no rodapé do PWA ("Nova versão pronta · Atualizar", X para esconder). Fundo `bg/inverse`, ação em pílula `bg/brand`. |
 | ListItem (Default, Danger) | 130:52 | Linha de menu (mín. 52): rótulo, valor opcional, chevron opcional; agrupada em cartão `bg/surface`. |
+| Divider (Inset true/false) | 163:49 | Linha de 1 px em `border/default` entre itens de um cartão ou lista; `Inset=true` recua 16 dos lados. Substitui o contorno dos containers. |
 | Button · Ghost | 120:29 | Só texto `text/brand`, altura 52; ação secundária (ex.: "Devolver para pendentes"). |
 | Tab (Active, Inactive) | 115:30 | Aba com contador; ativa em `bg/surface` com contador `text/accent` sobre `bg/accent-subtle`. |
 | Tabs | 115:31 | Trilha `bg/subtle` com duas Tab (Pendentes / No carrinho). |
@@ -166,6 +167,7 @@ src/app/+html.tsx      HTML da versão web (metas do iOS, manifesto)
 | 14/10 | Orçamento obrigatório ao criar compra; saldo é o número em destaque no resumo. |
 | 14/10 | Usar o **laranja (`bg/accent`) em partes dos componentes** para o app não ficar todo verde (ex.: barra de progresso, stepper, subtotal). Cuidado para não confundir com o âmbar de alerta na tela 12. |
 | 14/10 | Uso pessoal sem lojas: **web app instalável (PWA)** no iPhone. Login com Apple fica indisponível nessa fase. |
+| 16/10 | **Visual sem contornos** (pedido do designer, início da V2): containers e componentes não têm borda; itens de cartão/lista se separam com o `Divider` recuado. Campos: fundo `bg/subtle`; foco = `bg/brand-subtle`, erro = `bg/danger-subtle` (sem anel). Controles desmarcados (Checkbox, Radio, item pendente) = nova cor `bg/control`; Radio marcado = círculo `bg/brand` com ponto. Button Danger = fundo `bg/danger-subtle`. Tab ativa com raio md e trilha do Tabs com raio lg. Tokens sincronizados (brand-subtle mais forte, neutros, bordas com opacidade). |
 | 16/10 | **Aviso de atualização do PWA** (pedido do designer): a versão nova espera e o app mostra um aviso fixo no rodapé; "Atualizar" recarrega já na versão nova. Fim de re-adicionar o app à Tela de Início. |
 | 16/10 | **Supabase no ar (projeto `rancho`, São Paulo).** A `EXPO_PUBLIC_SUPABASE_URL` é a Project URL **sem** `/rest/v1` (com ele o cadastro dava 404; o app agora corta esse final). Testes no iPhone ok: cadastro, nome e foto (tabela `profiles` e bucket `avatars`), sair/entrar, nova senha por link, excluir conta. O link de nova senha falhou uma vez ("Este link expirou") e funcionou no pedido seguinte: provável link antigo; cada pedido invalida o anterior. |
 | 16/10 | **Supabase em duas fases:** A = contas reais (login, cadastro sem confirmação de e-mail, nova senha por link, perfil com nome e foto, excluir conta); B = dados da compra, depois dos esboços da V2. Google fica para depois. |
