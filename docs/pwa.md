@@ -46,7 +46,11 @@ A partir daí, **cada merge na `main` publica sozinho**. Branches de PR podem ge
 
 ## Como as atualizações chegam
 
-Cada build gera um `sw.js` novo (a versão do cache vem do conteúdo). Ao abrir o app com internet, o iPhone baixa a versão nova em segundo plano; ela aparece **na abertura seguinte**. Para forçar: fechar o app no seletor de apps e abrir de novo.
+Cada build gera um `sw.js` novo (a versão do cache vem do conteúdo). O app procura versão nova ao abrir e sempre que volta para a tela. Quando ela termina de baixar, aparece no rodapé o aviso **"Nova versão pronta · Atualizar"** (componente `UpdateBanner`). Tocar em **Atualizar** recarrega o app já na versão nova; o X esconde o aviso até a próxima abertura.
+
+**Não é preciso adicionar o app à Tela de Início de novo** a cada atualização.
+
+Como funciona: a versão nova do service worker fica esperando (`waiting`); "Atualizar" manda `SKIP_WAITING` para ela assumir e a página recarrega uma vez (`src/lib/pwa.web.ts`).
 
 ## Limitações conhecidas
 

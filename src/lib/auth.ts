@@ -13,8 +13,16 @@ import { supabase } from './supabase';
 // navegável no desenvolvimento. Nesse modo, e-mails com "erro" simulam falha
 // (ex.: erro@rancho.app).
 
-export type AuthFailure = 'invalid-credentials' | 'email-in-use' | 'network' | 'expired-link' | 'unknown';
-export type AuthResult = { ok: true } | { ok: false; reason: AuthFailure };
+export type AuthFailure =
+  | 'invalid-credentials'
+  | 'email-in-use'
+  | 'email-not-confirmed'
+  | 'network'
+  | 'expired-link'
+  | 'config'
+  | 'unknown';
+/** `code` = código do erro no Supabase, mostrado na mensagem para facilitar o suporte. */
+export type AuthResult = { ok: true } | { ok: false; reason: AuthFailure; code?: string };
 
 const simulated = !supabase;
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -26,14 +34,29 @@ const nameFromEmail = (email: string) => {
   return local.charAt(0).toUpperCase() + local.slice(1);
 };
 
+/**
+ * Traduz o erro do Supabase. Só "credenciais inválidas" vira "e-mail ou senha incorretos";
+ * qualquer outro erro aparece como tal (com o código), para não esconder um problema
+ * de configuração atrás de uma mensagem de senha errada.
+ */
 function failure(error: unknown, fallback: AuthFailure = 'unknown'): AuthResult {
-  if (isAuthRetryableFetchError(error)) return { ok: false, reason: 'network' };
+  if (isAuthRetryableFetchError(error)) {
+    // status 0 = não chegou ao servidor; 5xx = o servidor respondeu com erro.
+    if (!error.status) return { ok: false, reason: 'network' };
+    return { ok: false, reason: fallback, code: String(error.status) };
+  }
   if (isAuthApiError(error)) {
-    if (error.code === 'invalid_credentials') return { ok: false, reason: 'invalid-credentials' };
-    if (error.code === 'user_already_exists' || error.code === 'email_exists') return { ok: false, reason: 'email-in-use' };
+    const code = error.code ?? String(error.status);
+    if (code === 'invalid_credentials') return { ok: false, reason: 'invalid-credentials' };
+    if (code === 'user_already_exists' || code === 'email_exists') return { ok: false, reason: 'email-in-use' };
+    if (code === 'email_not_confirmed') return { ok: false, reason: 'email-not-confirmed' };
+    // Chave ou endereço do projeto errados.
+    if (error.status === 401 || error.status === 404) return { ok: false, reason: 'config', code };
+    return { ok: false, reason: fallback, code };
   }
   if (error instanceof TypeError) return { ok: false, reason: 'network' };
-  return { ok: false, reason: fallback };
+  const code = (error as { code?: string; status?: number } | null)?.code ?? (error as { status?: number } | null)?.status;
+  return { ok: false, reason: fallback, code: code != null ? String(code) : undefined };
 }
 
 /** Guarda no aparelho o nome, o e-mail e a foto da conta que acabou de entrar. */
@@ -51,7 +74,7 @@ export async function signIn(email: string, password: string): Promise<AuthResul
   }
   try {
     const { data, error } = await supabase!.auth.signInWithPassword({ email, password });
-    if (error) return failure(error, 'invalid-credentials');
+    if (error) return failure(error);
     await rememberUser(data.user.id, data.user.email ?? email, nameFromEmail(email));
     return { ok: true };
   } catch (error) {
@@ -70,8 +93,10 @@ export async function signUp(name: string, email: string, password: string): Pro
     // Sem confirmação de e-mail (decisão de 16/10): a conta já nasce com sessão.
     const { data, error } = await supabase!.auth.signUp({ email, password, options: { data: { name } } });
     if (error) return failure(error);
-    // Com o e-mail já cadastrado, o Supabase responde sem sessão e sem dizer por quê.
-    if (!data.session || !data.user || data.user.identities?.length === 0) return { ok: false, reason: 'email-in-use' };
+    // Com o e-mail já cadastrado, o Supabase responde sem sessão e com identities vazio.
+    if (!data.user || data.user.identities?.length === 0) return { ok: false, reason: 'email-in-use' };
+    // Conta criada, mas o projeto ainda exige confirmar o e-mail (Confirm email ligado).
+    if (!data.session) return { ok: false, reason: 'email-not-confirmed' };
     actions.signIn(name, data.user.email ?? email);
     return { ok: true };
   } catch (error) {
@@ -162,8 +187,12 @@ export async function initAuth(): Promise<void> {
 }
 
 /** Texto do erro para mostrar no campo, por motivo. */
-export function authMessage(reason: AuthFailure): string {
+export function authMessage(reason: AuthFailure, code?: string): string {
   switch (reason) {
+    case 'email-not-confirmed':
+      return 'Falta confirmar o e-mail desta conta. Abra o link que o Rancho enviou e tente de novo.';
+    case 'config':
+      return `O app não conseguiu falar com o serviço de contas (código: ${code ?? '?'}).`;
     case 'invalid-credentials':
       return 'E-mail ou senha incorretos. Confira e tente de novo.';
     case 'email-in-use':
@@ -173,6 +202,6 @@ export function authMessage(reason: AuthFailure): string {
     case 'expired-link':
       return 'Este link expirou. Peça um novo em "Esqueci a senha".';
     default:
-      return 'Algo deu errado. Tente de novo em instantes.';
+      return code ? `Algo deu errado (código: ${code}). Tente de novo em instantes.` : 'Algo deu errado. Tente de novo em instantes.';
   }
 }

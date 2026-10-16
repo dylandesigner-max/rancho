@@ -7,7 +7,11 @@ import { AppState, Platform } from 'react-native';
 // A chave "publishable" é pública por natureza: quem protege os dados são as regras (RLS).
 // Sem as chaves, `supabase` fica null e o app segue no modo simulado de src/lib/auth.ts.
 
-const url = process.env.EXPO_PUBLIC_SUPABASE_URL;
+// Aceita também o endereço copiado de "Data API", que vem com /rest/v1 no fim
+// (com ele, o login ia para /rest/v1/auth/v1/... e voltava 404).
+const url = process.env.EXPO_PUBLIC_SUPABASE_URL?.trim()
+  .replace(/\/+$/, '')
+  .replace(/\/rest\/v1$/, '');
 const key = process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
 // Na geração do site (npm run build:web) este código roda no Node, sem `window`:

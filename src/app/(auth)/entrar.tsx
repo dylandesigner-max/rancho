@@ -37,7 +37,7 @@ export default function Entrar() {
     setLoading(false);
     if (!result.ok) {
       // Credenciais: mensagem genérica, não revela se o erro foi no e-mail ou na senha.
-      setAuthError(authMessage(result.reason));
+      setAuthError(authMessage(result.reason, result.code));
       return;
     }
     router.replace('/inicio');
