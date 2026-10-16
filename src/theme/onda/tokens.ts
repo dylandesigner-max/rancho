@@ -33,8 +33,8 @@ export const primitives = {
     "950": "#340A00"
   },
   "neutral": {
-    "50": "#FAF5E3",
-    "100": "#F2E8D4",
+    "50": "#F8F5EB",
+    "100": "#E8E2D5",
     "200": "#E8DDC9",
     "300": "#D5C9B7",
     "400": "#BDAE9F",
@@ -97,6 +97,7 @@ export type ColorTokens = {
     "danger": string;
     "dangerSubtle": string;
     "overlay": string;
+    "control": string;
   };
   "text": {
     "primary": string;
@@ -126,39 +127,40 @@ export type ColorTokens = {
     "default": string;
     "strong": string;
     "brand": string;
-    "brandSubtle": string;
     "focus": string;
     "danger": string;
+    "brandSubtle": string;
   };
 };
 
 export const color: { light: ColorTokens; dark: ColorTokens } = {
   light: {
     "bg": {
-      "canvas": "#FAF5E3",
+      "canvas": "#F8F5EB",
       "surface": "#FFFFFF",
-      "subtle": "#F2E8D4",
+      "subtle": "#E8E2D5",
       "inverse": "#170C09",
       "disabled": "#E8DDC9",
       "brand": "#70BA00",
       "brandPressed": "#548C00",
-      "brandSubtle": "#F0FBE8",
+      "brandSubtle": "#C0EF98B3",
       "accent": "#F45F1C",
       "accentPressed": "#CE4305",
       "accentSubtle": "#FEF4F1",
       "successSubtle": "#E1F7CF",
       "warning": "#FBAC16",
-      "warningSubtle": "#FDECD5",
+      "warningSubtle": "#FDD7A5CC",
       "danger": "#D22539",
-      "dangerSubtle": "#FDF5F4",
-      "overlay": "#170C0980"
+      "dangerSubtle": "#F8D4D2",
+      "overlay": "#170C0980",
+      "control": "#D5C9B7"
     },
     "text": {
       "primary": "#170C09",
       "secondary": "#6E5C54",
       "tertiary": "#88766C",
       "disabled": "#A29285",
-      "inverse": "#FAF5E3",
+      "inverse": "#F8F5EB",
       "brand": "#2D7227",
       "onBrand": "#072019",
       "accent": "#A63403",
@@ -178,12 +180,12 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
       "accent": "#A63403"
     },
     "border": {
-      "default": "#E8DDC9",
+      "default": "#D5C9B766",
       "strong": "#BDAE9F",
       "brand": "#548C00",
-      "brandSubtle": "#70BA0066",
       "focus": "#548C00",
-      "danger": "#D22539"
+      "danger": "#D22539",
+      "brandSubtle": "#70BA0066"
     }
   },
   dark: {
@@ -191,7 +193,7 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
       "canvas": "#170C09",
       "surface": "#2E201D",
       "subtle": "#473632",
-      "inverse": "#FAF5E3",
+      "inverse": "#F8F5EB",
       "disabled": "#473632",
       "brand": "#8EE20F",
       "brandPressed": "#70BA00",
@@ -204,10 +206,11 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
       "warningSubtle": "#432B02",
       "danger": "#D22539",
       "dangerSubtle": "#380408",
-      "overlay": "#170C09B2"
+      "overlay": "#170C09B2",
+      "control": "#473632"
     },
     "text": {
-      "primary": "#FAF5E3",
+      "primary": "#F8F5EB",
       "secondary": "#BDAE9F",
       "tertiary": "#A29285",
       "disabled": "#88766C",
@@ -223,7 +226,7 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
       "onDanger": "#FFFFFF"
     },
     "icon": {
-      "primary": "#FAF5E3",
+      "primary": "#F8F5EB",
       "secondary": "#BDAE9F",
       "brand": "#8EE20F",
       "onBrand": "#072019",
@@ -231,12 +234,12 @@ export const color: { light: ColorTokens; dark: ColorTokens } = {
       "accent": "#FA916A"
     },
     "border": {
-      "default": "#473632",
+      "default": "#473632B3",
       "strong": "#88766C",
       "brand": "#8EE20F",
-      "brandSubtle": "#8EE20F66",
       "focus": "#8EE20F",
-      "danger": "#ED9693"
+      "danger": "#ED9693",
+      "brandSubtle": "#8EE20F66"
     }
   },
 };

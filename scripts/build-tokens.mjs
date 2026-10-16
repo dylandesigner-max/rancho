@@ -40,11 +40,17 @@ const single = (collection, prefix) => {
 const primitives = {};
 for (const [name, { Value }] of Object.entries(Primitives)) setPath(primitives, name, Value);
 
+// Alias com opacidade no Figma (ex.: neutral/300 a 40%) vira #RRGGBBAA.
+const withOpacity = (hex, opacity) => {
+  const base = hex.slice(0, 7);
+  const alpha = (hex.length === 9 ? parseInt(hex.slice(7), 16) / 255 : 1) * (opacity / 100);
+  return base + Math.round(alpha * 255).toString(16).padStart(2, '0').toUpperCase();
+};
 const resolveAlias = (v) => {
   if (typeof v === 'object' && v.alias) {
     const target = Primitives[v.alias];
     if (!target) throw new Error(`Alias sem primitiva: ${v.alias}`);
-    return target.Value;
+    return v.opacity != null && v.opacity < 100 ? withOpacity(target.Value, v.opacity) : target.Value;
   }
   return v;
 };
