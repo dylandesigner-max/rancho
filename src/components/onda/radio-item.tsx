@@ -7,14 +7,13 @@ type RadioItemProps = {
   description?: string;
   selected: boolean;
   onPress: () => void;
-  last?: boolean;
 };
 
 /**
  * RadioItem do Onda: opção de escolha única (mín. 52), rádio à direita. Selecionado:
- * anel border/brand com ponto bg/brand; não selecionado: anel border/strong.
+ * círculo bg/brand com ponto icon/on-brand; não selecionado: círculo bg/control.
  */
-export function RadioItem({ label, description, selected, onPress, last = false }: RadioItemProps) {
+export function RadioItem({ label, description, selected, onPress }: RadioItemProps) {
   const { color } = useOnda();
 
   return (
@@ -27,16 +26,14 @@ export function RadioItem({ label, description, selected, onPress, last = false 
         styles.root,
         {
           backgroundColor: pressed ? color.bg.subtle : color.bg.surface,
-          borderBottomColor: color.border.default,
-          borderBottomWidth: last ? 0 : 1,
         },
       ]}>
       <View style={styles.texts}>
         <Text style={[text.body.medium, { color: color.text.primary }]}>{label}</Text>
         {description ? <Text style={[text.caption, { color: color.text.secondary }]}>{description}</Text> : null}
       </View>
-      <View style={[styles.ring, { borderColor: selected ? color.border.brand : color.border.strong }]}>
-        {selected && <View style={[styles.dot, { backgroundColor: color.bg.brand }]} />}
+      <View style={[styles.ring, { backgroundColor: selected ? color.bg.brand : color.bg.control }]}>
+        {selected && <View style={[styles.dot, { backgroundColor: color.icon.onBrand }]} />}
       </View>
     </Pressable>
   );
@@ -59,13 +56,12 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: radius.full,
-    borderWidth: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },
   dot: {
-    width: 12,
-    height: 12,
+    width: 10,
+    height: 10,
     borderRadius: radius.full,
   },
 });

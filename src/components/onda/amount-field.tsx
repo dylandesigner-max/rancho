@@ -16,13 +16,12 @@ type AmountFieldProps = {
 };
 
 /**
- * AmountField do Onda: mesmas medidas do TextField, com "R$" fixo. Os dígitos
+ * AmountField do Onda: mesmas medidas e fundos do TextField, com "R$" fixo. Os dígitos
  * preenchem a partir dos centavos (9 → 0,09; 90000 → 900,00).
  */
 export function AmountField({ label, valueCents, onChangeCents, helper, autoFocus }: AmountFieldProps) {
   const { color } = useOnda();
   const [focused, setFocused] = useState(false);
-  const borderWidth = focused ? 2 : 1;
 
   return (
     <View style={styles.root}>
@@ -31,10 +30,7 @@ export function AmountField({ label, valueCents, onChangeCents, helper, autoFocu
         style={[
           styles.box,
           {
-            backgroundColor: color.bg.surface,
-            borderColor: focused ? color.border.focus : color.border.strong,
-            borderWidth,
-            paddingHorizontal: space.md - (borderWidth - 1),
+            backgroundColor: focused ? color.bg.brandSubtle : color.bg.subtle,
           },
         ]}>
         <Text style={[styles.font, { color: color.text.secondary }]}>R$</Text>
@@ -68,6 +64,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: space.xs,
+    paddingHorizontal: space.md,
   },
   font: {
     fontFamily: text.body.medium.fontFamily,

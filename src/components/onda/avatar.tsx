@@ -28,7 +28,6 @@ export function Avatar({ name, photoUri, size = 'small', showEditBadge = false, 
       style={[
         styles.circle,
         { width: dim, height: dim, backgroundColor: color.bg.brand },
-        photoUri ? { borderWidth: 1, borderColor: color.border.default } : null,
       ]}>
       {photoUri ? (
         <Image source={{ uri: photoUri }} style={styles.photo} contentFit="cover" accessibilityIgnoresInvertColors />
@@ -47,7 +46,7 @@ export function Avatar({ name, photoUri, size = 'small', showEditBadge = false, 
       style={large ? { width: dim, height: dim } : styles.touch}>
       {circle}
       {large && showEditBadge ? (
-        <View style={[styles.badge, { backgroundColor: color.bg.surface, borderColor: color.border.default }]}>
+        <View style={[styles.badge, { backgroundColor: color.bg.surface }]}>
           <Camera color={color.icon.primary} size={20} />
         </View>
       ) : null}
@@ -79,7 +78,6 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: radius.full,
-    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -26,9 +26,7 @@ export function Checkbox({ checked, onChange, children, accessibilityLabel }: Ch
       <View
         style={[
           styles.box,
-          checked
-            ? { backgroundColor: color.bg.brand }
-            : { backgroundColor: color.bg.surface, borderWidth: 2, borderColor: color.border.strong },
+          { backgroundColor: checked ? color.bg.brand : color.bg.control },
         ]}>
         {checked && <Check color={color.icon.onBrand} size={16} strokeWidth={3} />}
       </View>

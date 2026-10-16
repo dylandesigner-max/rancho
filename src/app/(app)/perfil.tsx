@@ -43,16 +43,16 @@ export default function Perfil() {
         <Grupo title="Conta">
           <ListItem label="Foto de perfil" chevron onPress={() => router.push('/foto-de-perfil')} />
           <ListItem label="Editar nome" chevron onPress={() => router.push('/editar-perfil')} />
-          <ListItem label="Forma de entrada" value="E-mail" last />
+          <ListItem label="Forma de entrada" value="E-mail" />
         </Grupo>
 
         <Grupo title="Preferências">
-          <ListItem label="Aparência" value={appearanceLabel[appearance]} chevron onPress={() => router.push('/aparencia')} last />
+          <ListItem label="Aparência" value={appearanceLabel[appearance]} chevron onPress={() => router.push('/aparencia')} />
         </Grupo>
 
         <Grupo title="Sobre o Rancho">
           <ListItem label="Termos de Uso" chevron onPress={() => soon('Os Termos de Uso')} />
-          <ListItem label="Política de Privacidade" chevron onPress={() => soon('A Política de Privacidade')} last />
+          <ListItem label="Política de Privacidade" chevron onPress={() => soon('A Política de Privacidade')} />
         </Grupo>
 
         <Grupo>
@@ -63,7 +63,7 @@ export default function Perfil() {
               goToWelcome();
             }}
           />
-          <ListItem label="Excluir conta" tone="danger" chevron onPress={() => router.push('/excluir-conta')} last />
+          <ListItem label="Excluir conta" tone="danger" chevron onPress={() => router.push('/excluir-conta')} />
         </Grupo>
       </ScrollView>
     </SafeAreaView>

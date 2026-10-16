@@ -26,7 +26,7 @@ export function Tabs<K extends string>({ tabs, value, onChange }: TabsProps<K>) 
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'row',
-    borderRadius: radius.full,
+    borderRadius: radius.lg,
     padding: space['2xs'],
     gap: space['2xs'],
   },

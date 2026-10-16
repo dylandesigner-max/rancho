@@ -38,7 +38,7 @@ export function ConcluirCompraSheet({ visible, purchase, onClose, onConclude }: 
           styles.result,
           over
             ? { backgroundColor: color.bg.dangerSubtle }
-            : { backgroundColor: color.bg.brandSubtle, borderColor: color.border.brandSubtle, borderWidth: 1 },
+            : { backgroundColor: color.bg.brandSubtle },
         ]}>
         <Text style={[text.caption, { color: color.text.secondary }]}>Gasto final</Text>
         <Text style={[text.amount.large, { color: color.text.primary }]}>{formatBRL(spent)}</Text>

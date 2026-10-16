@@ -1,6 +1,6 @@
 {
   "source": "Figma · Rancho (imkUw2bVyRrBlHJt9v9Wsp) · variáveis locais e text styles",
-  "exportedAt": "2026-10-14",
+  "exportedAt": "2026-10-16",
   "collections": {
     "Primitives": {
       "green/50": {
@@ -70,10 +70,10 @@
         "Value": "#340A00"
       },
       "neutral/50": {
-        "Value": "#FAF5E3"
+        "Value": "#F8F5EB"
       },
       "neutral/100": {
-        "Value": "#F2E8D4"
+        "Value": "#E8E2D5"
       },
       "neutral/200": {
         "Value": "#E8DDC9"
@@ -243,10 +243,12 @@
       },
       "bg/brand-subtle": {
         "Light": {
-          "alias": "green/50"
+          "alias": "green/200",
+          "opacity": 70
         },
         "Dark": {
-          "alias": "green/950"
+          "alias": "green/700",
+          "opacity": 40
         }
       },
       "bg/accent": {
@@ -291,7 +293,8 @@
       },
       "bg/warning-subtle": {
         "Light": {
-          "alias": "amber/100"
+          "alias": "amber/200",
+          "opacity": 80
         },
         "Dark": {
           "alias": "amber/900"
@@ -307,7 +310,7 @@
       },
       "bg/danger-subtle": {
         "Light": {
-          "alias": "red/50"
+          "alias": "red/200"
         },
         "Dark": {
           "alias": "red/950"
@@ -467,10 +470,12 @@
       },
       "border/default": {
         "Light": {
-          "alias": "neutral/200"
+          "alias": "neutral/300",
+          "opacity": 40
         },
         "Dark": {
-          "alias": "neutral/800"
+          "alias": "neutral/800",
+          "opacity": 70
         }
       },
       "border/strong": {
@@ -489,14 +494,6 @@
           "alias": "green/300"
         }
       },
-      "border/brand-subtle": {
-        "Light": {
-          "alias": "green/400-a40"
-        },
-        "Dark": {
-          "alias": "green/300-a40"
-        }
-      },
       "border/focus": {
         "Light": {
           "alias": "green/600"
@@ -513,6 +510,14 @@
           "alias": "red/400"
         }
       },
+      "border/brand-subtle": {
+        "Light": {
+          "alias": "green/400-a40"
+        },
+        "Dark": {
+          "alias": "green/300-a40"
+        }
+      },
       "bg/overlay": {
         "Light": {
           "alias": "neutral/950-a50"
@@ -527,6 +532,14 @@
         },
         "Dark": {
           "alias": "orange/400"
+        }
+      },
+      "bg/control": {
+        "Light": {
+          "alias": "neutral/300"
+        },
+        "Dark": {
+          "alias": "neutral/800"
         }
       }
     },
@@ -667,135 +680,135 @@
     {
       "name": "Display/Large",
       "bound": {
-        "fontFamily": "font/family/display",
-        "fontStyle": "font/weight/regular",
         "fontSize": "font/size/5xl",
+        "fontStyle": "font/weight/regular",
+        "fontFamily": "font/family/display",
         "lineHeight": "font/line-height/4xl"
       }
     },
     {
       "name": "Display/Medium",
       "bound": {
-        "fontFamily": "font/family/display",
-        "fontStyle": "font/weight/regular",
         "fontSize": "font/size/3xl",
+        "fontStyle": "font/weight/regular",
+        "fontFamily": "font/family/display",
         "lineHeight": "font/line-height/2xl"
       }
     },
     {
       "name": "Heading/Large",
       "bound": {
-        "fontFamily": "font/family/display",
-        "fontStyle": "font/weight/regular",
         "fontSize": "font/size/2xl",
+        "fontStyle": "font/weight/regular",
+        "fontFamily": "font/family/display",
         "lineHeight": "font/line-height/xl"
       }
     },
     {
       "name": "Heading/Medium",
       "bound": {
-        "fontFamily": "font/family/text",
-        "fontStyle": "font/weight/extrabold",
         "fontSize": "font/size/xl",
+        "fontStyle": "font/weight/extrabold",
+        "fontFamily": "font/family/text",
         "lineHeight": "font/line-height/lg"
       }
     },
     {
       "name": "Heading/Small",
       "bound": {
-        "fontFamily": "font/family/text",
-        "fontStyle": "font/weight/bold",
         "fontSize": "font/size/lg",
+        "fontStyle": "font/weight/bold",
+        "fontFamily": "font/family/text",
         "lineHeight": "font/line-height/md"
       }
     },
     {
       "name": "Body/Large",
       "bound": {
-        "fontFamily": "font/family/text",
-        "fontStyle": "font/weight/regular",
         "fontSize": "font/size/lg",
+        "fontStyle": "font/weight/regular",
+        "fontFamily": "font/family/text",
         "lineHeight": "font/line-height/lg"
       }
     },
     {
       "name": "Body/Medium",
       "bound": {
-        "fontFamily": "font/family/text",
-        "fontStyle": "font/weight/regular",
         "fontSize": "font/size/md",
+        "fontStyle": "font/weight/regular",
+        "fontFamily": "font/family/text",
         "lineHeight": "font/line-height/md"
       }
     },
     {
       "name": "Body/Small",
       "bound": {
-        "fontFamily": "font/family/text",
-        "fontStyle": "font/weight/regular",
         "fontSize": "font/size/sm",
+        "fontStyle": "font/weight/regular",
+        "fontFamily": "font/family/text",
         "lineHeight": "font/line-height/sm"
       }
     },
     {
       "name": "Label/Large",
       "bound": {
-        "fontFamily": "font/family/text",
-        "fontStyle": "font/weight/bold",
         "fontSize": "font/size/md",
+        "fontStyle": "font/weight/bold",
+        "fontFamily": "font/family/text",
         "lineHeight": "font/line-height/sm"
       }
     },
     {
       "name": "Label/Medium",
       "bound": {
-        "fontFamily": "font/family/text",
-        "fontStyle": "font/weight/bold",
         "fontSize": "font/size/sm",
+        "fontStyle": "font/weight/bold",
+        "fontFamily": "font/family/text",
         "lineHeight": "font/line-height/sm"
       }
     },
     {
       "name": "Label/Small",
       "bound": {
-        "fontFamily": "font/family/text",
-        "fontStyle": "font/weight/bold",
         "fontSize": "font/size/xs",
+        "fontStyle": "font/weight/bold",
+        "fontFamily": "font/family/text",
         "lineHeight": "font/line-height/xs"
       }
     },
     {
       "name": "Caption",
       "bound": {
-        "fontFamily": "font/family/text",
-        "fontStyle": "font/weight/semibold",
         "fontSize": "font/size/xs",
+        "fontStyle": "font/weight/semibold",
+        "fontFamily": "font/family/text",
         "lineHeight": "font/line-height/xs"
       }
     },
     {
       "name": "Amount/Large",
       "bound": {
-        "fontFamily": "font/family/text",
-        "fontStyle": "font/weight/extrabold",
         "fontSize": "font/size/4xl",
+        "fontStyle": "font/weight/extrabold",
+        "fontFamily": "font/family/text",
         "lineHeight": "font/line-height/3xl"
       }
     },
     {
       "name": "Amount/Medium",
       "bound": {
-        "fontFamily": "font/family/text",
-        "fontStyle": "font/weight/extrabold",
         "fontSize": "font/size/2xl",
+        "fontStyle": "font/weight/extrabold",
+        "fontFamily": "font/family/text",
         "lineHeight": "font/line-height/xl"
       }
     },
     {
       "name": "Amount/Small",
       "bound": {
-        "fontFamily": "font/family/text",
-        "fontStyle": "font/weight/bold",
         "fontSize": "font/size/md",
+        "fontStyle": "font/weight/bold",
+        "fontFamily": "font/family/text",
         "lineHeight": "font/line-height/sm"
       }
     }

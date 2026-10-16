@@ -24,7 +24,7 @@ export default function Aparencia() {
             onPress={() => actions.setAppearance('system')}
           />
           <RadioItem label="Claro" selected={appearance === 'light'} onPress={() => actions.setAppearance('light')} />
-          <RadioItem label="Escuro" selected={appearance === 'dark'} onPress={() => actions.setAppearance('dark')} last />
+          <RadioItem label="Escuro" selected={appearance === 'dark'} onPress={() => actions.setAppearance('dark')} />
         </Grupo>
         <Text style={[text.caption, { color: color.text.tertiary }]}>A escolha fica salva neste aparelho.</Text>
       </View>

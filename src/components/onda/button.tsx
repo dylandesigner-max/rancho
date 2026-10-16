@@ -10,7 +10,7 @@ type ButtonProps = {
   disabled?: boolean;
   /** Mostra o spinner e bloqueia o toque (ex.: enquanto envia). */
   loading?: boolean;
-  /** primary = verde com borda 3D; ghost = só texto (ação secundária); danger = contorno vermelho (ação destrutiva). */
+  /** primary = verde com borda 3D; ghost = só texto (ação secundária); danger = fundo vermelho claro (ação destrutiva). */
   variant?: 'primary' | 'ghost' | 'danger';
 };
 
@@ -38,7 +38,7 @@ export function Button({ label, onPress, disabled = false, loading = false, vari
         style={({ pressed }) => [
           styles.root,
           styles.flat,
-          danger && { borderWidth: 2, borderColor: color.border.danger },
+          danger && { backgroundColor: color.bg.dangerSubtle },
           { opacity: disabled ? 0.4 : pressed ? 0.7 : 1 },
         ]}>
         {loading && <Spinner color={danger ? color.text.danger : color.text.brand} />}
